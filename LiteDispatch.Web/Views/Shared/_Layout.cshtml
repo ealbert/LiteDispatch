@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - AEMPM</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/themes/base/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">
+                        
+                        <table style="margin-top:0">
+                            <tr>
+                                <td>
+                                    <img src="~/Images/liteDispatch_logo.jpg" alt="LiteDispatch Logo"/>
+                                </td>
+                                <td>
+                                    <table>
+                                    <tr>
+                                        <td class="featured">LiteDispach App</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="featured">Azure WebSite Example</td>            
+                                    </tr>
+                                    </table>
+                                </td>                                
+                            </tr>                            
+                        </table>
+                    </p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <nav style="margin-top: 35px;">
+                            <ul id="menu">
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li>@Html.ActionLink("New Dispatch", "Index", "Dispatch")</li>                                
+                                <li>@Html.ActionLink("Active Dispatches", "Enquiry", "Dispatch")</li>
+                                
+                            </ul>
+                        </nav>
+                    }
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - LiteDispatch</p>
+                </div>
+                <div class="float-right">
+                    <p>Version 26-Abril-2013 - @Html.ActionLink("Enhancements and Changes", "Index", "ReleaseNotes")</p>
+                </div>
+            </div>
+        </footer>
+
+        
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

@@ -1,0 +1,81 @@
+﻿@model LiteDispatch.Web.Models.DispatchModel
+@{
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+    ViewData["IsFooterEnable"] = false;
+}
+<table>
+    <tr>
+        <td>
+            <table class="encabezado">
+                <tr>
+                    <td>@Html.LabelFor(m => m.Transportista)</td>
+                    <td>@Html.DisplayFor(m => m.Transportista)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Fecha)</td>
+                    <td>@Html.DisplayFor(m => m.Fecha)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.PedidoReferencia)</td>
+                    <td>@Html.DisplayFor(m => m.PedidoReferencia)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Camion)</td>
+                    <td>@Html.DisplayFor(m => m.Camion)</td>
+                </tr>
+            </table>
+        </td>       
+        <td style="vertical-align: top">
+            <table class="encabezado">
+                <tr>
+                    <td>@Html.LabelFor(m => m.Usuario)</td>
+                    <td>@Html.DisplayFor(m => m.Usuario)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Estado)</td>
+                    <td>@Html.DisplayFor(m => m.Estado)</td>
+                </tr>
+                <tr></tr>
+                <tr></tr>
+            </table>
+        </td> 
+    </tr>
+</table>
+<table id="lineas">
+    <tr>
+        <th>Line</th>
+        <th>Product Type</th>
+        <th>Product</th>
+        <th>Metric</th>
+        <th>Quantity</th>
+        <th>Shop</th>
+        <th>Client</th>
+    </tr>
+    @foreach (var linea in Model.Lineas)
+    {
+        <tr>
+            <td>@linea.LineaId</td>
+            <td>@linea.TipoProducto</td>
+            <td>@linea.Producto</td>
+            <td>@linea.Unidad</td>
+            <td>@linea.Cantidad</td>
+            <td>@linea.PuestoDescription()</td>
+            <td>@linea.Comerciante</td>
+        </tr>
+    }
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#lineas > tbody tr:odd").css("background-color", "#F7F7F7");
+        $("#lineas > tbody tr th").css("padding-right", "20px"); // ToDo: Use CSS to do this
+        $(".encabezado > tbody td:odd").css("background-color", "rgb(122, 192, 218)").css("padding-left", "20px").css("color", "white").css("font-size", "1.2em");
+        
+    });
+    $(window).load(function () {
+        window.print();
+        window.close();
+    });
+    
+</script>
+
+

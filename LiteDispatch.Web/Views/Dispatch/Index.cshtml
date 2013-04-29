@@ -1,0 +1,62 @@
+﻿@model LiteDispatch.Web.Models.UploadListadoModel
+
+@{
+    ViewBag.Title = "Haulier - New Dispatch Note";    
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <div id="detail_up" class="float-right"><img src="~/Images/deploy_chevronup.gif"/></div>
+            <div id="detail_down" class="float-right"><img src="~/Images/deploy_chevrondown.gif"/></div>
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>
+                @if (ViewBag.NotificationMsg != null)
+                {
+                    <br/>
+                    <h2>@ViewBag.NotificationMsg</h2>
+                }
+            </hgroup>
+            
+            <div id="featured_detail">
+                <p >
+                    <h5>Design Notes</h5>
+                    In this page the haulier uploads a new dispatch note file, this file is an Excel document with a well known format. Download the file provided on the link at the bottom of this page for an example file.<br/>
+                    <h5>Comments</h5>
+                    Currently the upload file is not processed at all, a mock set of lines are created instead. Nevertheless, the application checks that the correct file type is uploaded.
+                </p>
+             </div>
+        </div>
+    </section>
+}
+@using (Html.BeginForm("UploadFile", "Dispatch", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>        
+        @Html.LabelFor(model => model.PedidoReferencia)
+        @Html.EditorFor(model => model.PedidoReferencia)
+        @Html.ValidationMessageFor(m => m.PedidoReferencia)
+        @Html.LabelFor(model => model.CamionReferencia)
+        @Html.EditorFor(model => model.CamionReferencia)
+        @Html.ValidationMessageFor(m => m.CamionReferencia)
+        @Html.LabelFor(model => model.PedidoFecha)
+        @Html.EditorFor(model => model.PedidoFecha)
+        @Html.ValidationMessageFor(m => m.PedidoFecha)
+        <legend>Select Dispatch</legend>
+        <ol>
+            <li>
+                <input type="file" name="uploadedFile" />
+            </li>
+        </ol>
+        <input type="submit" value="Subir Archivo" />
+    </fieldset>    
+}
+<p>
+    @Html.ActionLink("Download Template", "ExcelTemplate")
+</p>
+
+@section scripts
+{
+    <script src="~/Scripts/feature-detail.js" type="text/javascript"></script>
+}

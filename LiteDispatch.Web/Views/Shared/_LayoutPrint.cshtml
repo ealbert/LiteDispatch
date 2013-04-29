@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - AEMPM</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @*@Styles.Render("~/Content/css")*@
+        <link rel="stylesheet" href="~/Content/Site.css" type="text/css" media="print" />
+        @Styles.Render("~/Content/themes/base/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">                        
+                        <table style="margin-top:0">
+                            <tr>
+                                <td>
+                                    <img src="~/Images/liteDispatch_logo.jpg" alt="LiteDispatch Logo"/>
+                                </td>
+                                <td>
+                                    <table>
+                                    <tr>
+                                        <td class="featured">LiteDispach App</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="featured">Azure WebSite Example</td>            
+                                    </tr>
+                                    </table>
+                                </td>                                
+                            </tr>                            
+                        </table>
+                    </p>
+                </div>               
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        @if (ViewData["IsFooterEnable"] != null &&  (bool)ViewData["IsFooterEnable"])
+        {
+            <footer>
+                <div class="content-wrapper">
+                    <div class="float-left">
+                        <p>&copy; @DateTime.Now.Year - LiteDispatch</p>
+                    </div>
+                </div>
+            </footer>
+        }
+        
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

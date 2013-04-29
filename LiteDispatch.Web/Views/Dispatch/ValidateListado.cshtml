@@ -1,0 +1,34 @@
+﻿@model LiteDispatch.Web.Models.DispatchModel
+@{
+    ViewBag.Title = "Haulier - Confirm New Dispatch Note";    
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <div id="detail_up" class="float-right"><img src="~/Images/deploy_chevronup.gif"/></div>
+            <div id="detail_down" class="float-right"><img src="~/Images/deploy_chevrondown.gif"/></div>
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>                
+                <br/>
+                <h2>@ViewBag.Message</h2>                
+            </hgroup>
+            <div id="featured_detail">
+                <p>
+                    <h5>Design Notes</h5>
+                    In this page, the haulier user confirms whether or not the dispatch details and lines are correct before it is saved. If the dispatch note is confirmed, then its status is set to Received.<br/>
+                </p>
+            </div>
+        </div>
+    </section>
+}
+@Html.Partial("Listado", Model)
+<table>
+    <tr>
+        <td><input type="button" value="Confirm" onclick=" location.href = '@Url.Action("Confirm", "Dispatch")'" /></td>
+        <td><input type="button" value="Discard" onclick=" location.href = '@Url.Action("Discard", "Dispatch")'" /></td>
+    </tr>
+</table>
+@section scripts
+{
+    <script src="~/Scripts/feature-detail.js" type="text/javascript"></script>
+}

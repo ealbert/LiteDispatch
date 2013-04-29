@@ -1,0 +1,108 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Release Notes - Cambios y Mejoras";    
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>
+                @*
+                <br/>
+                <h2>@ViewBag.Message</h2>
+                *@
+            </hgroup>
+            <p>
+                Lista detallada de los cambios hechos en la aplicacion ordenados por fecha.
+            </p>
+        </div>
+    </section>
+}
+<h3>23-Abril-2013</h3>
+<ul>
+    <li>Impresion</li>
+    <ul>        
+        <li>Link para imprimir listados funciona en la pagina de 'Consulta de Listados Activos'</li>
+    </ul>
+</ul>
+<h3>20-Abril-2013</h3>
+<ul>
+    <li>Impresion</li>
+    <ul>        
+        <li>Intento para ver si la libreria Rotativa era capaz de generar ficheros PDF para listados, no funciona en Azure</li>
+    </ul>
+    <li>Modulo Transportista - Consulta de Listado</li>
+    <ul>        
+        <li>Campos de usuario y estado son visibles en la pagina de detalle de un listado</li>
+        <li>Link para imprimir un listado, de momento esta funcionalidad es muy pobre -- work in progress</li>
+    </ul>
+</ul>
+<h3>19-Abril-2013</h3>
+<ul>
+    <li>General</li>
+    <ul>        
+        <li>Los margenes de la zona de titulos se han ajustado para que ocupen menos espacio</li>
+    </ul>
+    <li>Modulo Transportista - Verificacion de Listado</li>
+    <ul>        
+        <li>La funcion de 'Listados Activos' presenta un link para ver consultar los detalles de un listado</li>
+    </ul>
+</ul>
+<h3>18-Abril-2013</h3>
+<ul>
+    <li>Modulo Transportista - Verificacion de Listado</li>
+    <ul>        
+        <li>Campos añadidos: Transportista, Fecha, referencia y camion</li>
+    </ul>
+    <li>Modulo Transportista - Consulta de Listados Activos</li>
+    <ul>        
+        <li>Nueva seccion que presenta una lista de listados activos</li>
+        <li>Nuevo menu Listado Activos</li>
+    </ul>
+</ul>
+<h3>16-Abril-2013</h3>
+<ul>
+    <li>General</li>
+    <ul>
+        <li>Effecto visual fue añadido a los botones</li>
+        <li>Configurar la conexion con el idioma en el browser del usuario</li>
+    </ul>
+    <li>Modulo Transportista - Añadir Listado</li>
+    <ul>        
+        <li>Cambios en los mensajes de validacion al entrar un listado</li>
+        <li>Cambiar el menu de Agregar Albaran por Añadir Listado</li>
+        <li>Link para descargar la plantilla de Listado fue añadida</li>
+        <li>Validacion para comprobar que el fichero de subida es del tipo correcto: XLSX</li>
+    </ul>
+    <li>Modulo Transportista - General</li>
+    <ul>        
+        <li>Añadir un efecto de persiana a los encabezados de las pagina para esconder por defecto la seccion de comentarios en la cabecera</li>
+    </ul>
+</ul>
+<h3>15-Abril-2013</h3>
+<ul>
+    <li>Modulo Transportista - Agregar Listado</li>
+    <ul>
+        <li>Nuevos campos fueron añadidos : Referencia del transportista, camion (matricula??) y fecha de pedido</li>
+        <li>Validacion basica de los datos de entrada</li>
+    </ul>
+</ul>
+<h3>14-Abril-2013</h3>
+<ul>
+    <li>La seccion de Release Notes fue creada</li>
+    <li>Sitio Web es configurado para funcionar en el entorno Azure de Microsoft</li>
+    <li>El sitio web en Azure es automaticamente construido despues de salvar cambios</li>
+    <li>Modulo Transportista Cambios (Todas las paginas estan en estado de prototipo)</li>
+    <ul>
+        <li>Pagina de Inicio esta disponible</li>
+        <li>Pagina de subida de archivo de albaran esta disponible</li>
+        <li>Pagina de verificacion de albaran importada esta disponible</li>
+    </ul>
+</ul>
+<h3>13-Abril-2013</h3>
+<ul>
+    <li>Modulo de seguridad fue anadido con base de datos para la informacion de los usuarios</li>
+    <li>Solucion para la applicacion fue creada</li>
+</ul>

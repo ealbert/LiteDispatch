@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Transportista - Pagina Inicio";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <div id="detail_up" class="float-right"><img src="~/Images/deploy_chevronup.gif"/></div>
+            <div id="detail_down" class="float-right"><img src="~/Images/deploy_chevrondown.gif"/></div>
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1><br/>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <div id="featured_detail">
+                <p>
+                    <h5>Design Notes</h5>
+                    This is the home page for a haulier user, the idea is to place some basic stats on this page related to the last dispatch notes processed in the application.<br/>
+                </p>
+            </div>
+        </div>
+    </section>
+}
+<h3>Activity Summary:</h3>
+<ol class="round">
+    <li class="one">
+        <h5>Last Dispatch Note</h5>
+        ToDo: Display summary details of the last dispatch note that was created in the system
+    </li>
+
+    <li class="two">
+        <h5>Last Seven Days Activity</h5>
+        ToDo: Display last seven days dispatch note stats: number of documents created, in active state and in processed state
+    </li>
+
+    <li class="three">
+        <h5>Last Month Activity</h5>
+        ToDo: Display last month dispatch note stats: number of documents created, in active state and in processed state
+    </li>
+</ol>
+@section scripts
+{
+    <script src="~/Scripts/feature-detail.js" type="text/javascript"></script>
+}
