@@ -1,4 +1,4 @@
-﻿@model LiteDispatch.Web.Models.UploadListadoModel
+﻿@model LiteDispatch.Web.Models.UploadDispatchModel
 
 @{
     ViewBag.Title = "Haulier - New Dispatch Note";    
@@ -34,22 +34,22 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     <fieldset>        
-        @Html.LabelFor(model => model.PedidoReferencia)
-        @Html.EditorFor(model => model.PedidoReferencia)
-        @Html.ValidationMessageFor(m => m.PedidoReferencia)
-        @Html.LabelFor(model => model.CamionReferencia)
-        @Html.EditorFor(model => model.CamionReferencia)
-        @Html.ValidationMessageFor(m => m.CamionReferencia)
-        @Html.LabelFor(model => model.PedidoFecha)
-        @Html.EditorFor(model => model.PedidoFecha)
-        @Html.ValidationMessageFor(m => m.PedidoFecha)
+        @Html.LabelFor(model => model.ReferenceNumber)
+        @Html.EditorFor(model => model.ReferenceNumber)
+        @Html.ValidationMessageFor(m => m.ReferenceNumber)
+        @Html.LabelFor(model => model.TruckReg)
+        @Html.EditorFor(model => model.TruckReg)
+        @Html.ValidationMessageFor(m => m.TruckReg)
+        @Html.LabelFor(model => model.DispatchDate)
+        @Html.EditorFor(model => model.DispatchDate)
+        @Html.ValidationMessageFor(m => m.DispatchDate)
         <legend>Select Dispatch</legend>
         <ol>
             <li>
                 <input type="file" name="uploadedFile" />
             </li>
         </ol>
-        <input type="submit" value="Subir Archivo" />
+        <input type="submit" value="Submit File" />
     </fieldset>    
 }
 <p>

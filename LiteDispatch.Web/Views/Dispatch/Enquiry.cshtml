@@ -42,14 +42,14 @@
         {
             <tr>
                 <td>@listado.Transportista</td>
-                <td>@string.Format("{0:d}", listado.Fecha)</td>
-                <td>@listado.PedidoReferencia</td>
-                <td>@listado.Camion</td>
-                <td>@listado.Estado</td>
-                <td>@listado.FechaCreado</td>
-                <td>@listado.Lineas.Count</td>
-                <td>@Html.ActionLink("detalle", "DisplayListado", new { listadoGuid = listado.Guid })</td>
-                <td>@Html.ActionLink("imprimir", "ImprimirListado", new { listadoGuid = listado.Guid }, new { target = "_blank"})</td>
+                <td>@string.Format("{0:d}", listado.DispatchDate)</td>
+                <td>@listado.DispatchReference</td>
+                <td>@listado.TruckReg</td>
+                <td>@listado.State</td>
+                <td>@listado.CreationDate</td>
+                <td>@listado.Lines.Count</td>
+                <td>@Html.ActionLink("detail", "DisplayDispatch", new { listadoGuid = listado.Guid })</td>
+                <td>@Html.ActionLink("print", "PrintDispatch", new { listadoGuid = listado.Guid }, new { target = "_blank"})</td>
             </tr>
         }
     </table>

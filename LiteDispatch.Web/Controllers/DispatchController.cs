@@ -6,6 +6,7 @@
   using System.Web;
   using System.Web.Mvc;
   using Models;
+  using WebMatrix.WebData;
 
   public class DispatchController : Controller
   {
@@ -18,7 +19,7 @@
       return View();
     }
 
-    public ActionResult UploadFile(UploadListadoModel model, HttpPostedFileBase uploadedFile)
+    public ActionResult UploadFile(UploadDispatchModel model, HttpPostedFileBase uploadedFile)
     {
       var invalidFlag = IsInvalidUploadFile(uploadedFile);
       if (!ModelState.IsValid || invalidFlag)
@@ -30,10 +31,10 @@
         }
         return View("Index", model);
       }
-      return RedirectToAction("ValidateListado", model);
+      return RedirectToAction("ValidateDispatch", model);
     }
 
-    public ActionResult DisplayListado(Guid listadoGuid)
+    public ActionResult DisplayDispatch(Guid listadoGuid)
     {
       var listado = Dispatches().SingleOrDefault(l => l.Guid == listadoGuid);
       return View(listado);
@@ -56,19 +57,19 @@
       return "The uploaded file is invalid";
     }
 
-    public ActionResult ValidateListado(UploadListadoModel model)
+    public ActionResult ValidateDispatch(UploadDispatchModel model)
     {
-      var listado = GetAlbaran(model);
+      var dispatch = GetDispatchNote(model);
       const string msg = "{0} - New dispatch note was created with date {1:d} and contains {2} lines";
-      ViewBag.Message = string.Format(msg, listado.Transportista, listado.Fecha, listado.Lineas.Count);
-      Session.Add("Dispatch", listado);
-      return View(listado);
+      ViewBag.Message = string.Format(msg, dispatch.Transportista, dispatch.DispatchDate, dispatch.Lines.Count);
+      Session.Add("Dispatch", dispatch);
+      return View(dispatch);
     }
 
-    public ActionResult ImprimirListado(Guid listadoGuid)
+    public ActionResult PrintDispatch(Guid listadoGuid)
     {
-      var listado = Dispatches().SingleOrDefault(l => l.Guid == listadoGuid);
-      return View("ImprimirListado", listado);
+      var dispatch = Dispatches().SingleOrDefault(l => l.Guid == listadoGuid);
+      return View(dispatch);
     }      
 
     public ActionResult Enquiry()
@@ -79,51 +80,51 @@
 
     public ActionResult ExcelTemplate()
     {
-      return File("~/Content/documents/Listado_Plantilla.xlsx", "application/vnd.ms-excel", "Listado_Plantilla.xlsx");
+      return File("~/Content/documents/Dispatch_Template.xlsx", "application/vnd.ms-excel", "Dispatch_Template.xlsx");
     }
 
-    private DispatchModel GetAlbaran(UploadListadoModel model)
+    private DispatchModel GetDispatchNote(UploadDispatchModel model)
     {
-      var result = new DispatchModel {Estado = "Received", Fecha = model.PedidoFecha.Value, Transportista = "KillerLogistics", Camion = model.CamionReferencia, PedidoReferencia = model.PedidoReferencia};
+      var result = new DispatchModel {State = "Received", DispatchDate = model.DispatchDate.Value, Transportista = "KillerLogistics", TruckReg = model.TruckReg, DispatchReference = model.ReferenceNumber};
       var linea = new DispatchLineModel
         {
-          LineaId = 1,
-          TipoProducto = "Fresh",
-          Producto = "Hake",
-          Unidad = "Kg",
-          Cantidad = 25,
-          PuestoId = 18,
-          Comerciante = "RedSquid"
+          LineId = 1,
+          ProductType = "Fresh",
+          Product = "Hake",
+          Metric = "Kg",
+          Quantity = 25,
+          ShopId = 18,
+          Client = "RedSquid"
         };
 
-      result.Lineas.Add(linea);
+      result.Lines.Add(linea);
 
       linea = new DispatchLineModel
       {
-        LineaId = 2,
-        TipoProducto = "Frozen",
-        Producto = "Frozen Squid",
-        Unidad = "Pallet",
-        Cantidad = 4,
-        PuestoId = 4,
-        PuestoLetra = "A",
-        Comerciante = "Alaska Brothers"
+        LineId = 2,
+        ProductType = "Frozen",
+        Product = "Frozen Squid",
+        Metric = "Pallet",
+        Quantity = 4,
+        ShopId = 4,
+        ShopLetter = "A",
+        Client = "Alaska Brothers"
       };
 
-      result.Lineas.Add(linea);
+      result.Lines.Add(linea);
 
       linea = new DispatchLineModel
       {
-        LineaId = 3,
-        TipoProducto = "Shellfish",
-        Producto = "Mussel",
-        Unidad = "Sac",
-        Cantidad = 20,
-        PuestoId = 112,
-        Comerciante = "Irish Seafoods"
+        LineId = 3,
+        ProductType = "Shellfish",
+        Product = "Mussel",
+        Metric = "Sac",
+        Quantity = 20,
+        ShopId = 112,
+        Client = "Irish Seafoods"
       };
 
-      result.Lineas.Add(linea);
+      result.Lines.Add(linea);
 
       return result;
     }
@@ -131,11 +132,11 @@
     public ActionResult Confirm()
     {
       TempData["NotificationMsg"] = "Last dispatch note was confirmed";
-      var listado = (DispatchModel) Session["Dispatch"];
-      listado.FechaCreado = DateTime.Now;
-      listado.Guid = Guid.NewGuid();
-      listado.Usuario = User.Identity.Name;
-      Dispatches().Add(listado);
+      var dispatchModel = (DispatchModel) Session["Dispatch"];
+      dispatchModel.CreationDate = DateTime.Now;
+      dispatchModel.Guid = Guid.NewGuid();
+      dispatchModel.User = WebSecurity.CurrentUserName;
+      Dispatches().Add(dispatchModel);
       return RedirectToAction("Enquiry");
     }
 

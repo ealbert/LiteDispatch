@@ -8,51 +8,51 @@
   {
     public DispatchModel()
     {
-      Lineas = new List<DispatchLineModel>();
+      Lines = new List<DispatchLineModel>();
     }
 
     public string Transportista { get; set; }
 
     [Display(Name = "Dispatch Date")]
     [DataType(DataType.Date)]
-    public DateTime Fecha { get; set; }
+    public DateTime DispatchDate { get; set; }
 
     [Display(Name = "State")]
-    public string Estado { get; set; }
+    public string State { get; set; }
         
     [Display(Name = "Truck Reg#")]
-    public string Camion { get; set; }
+    public string TruckReg { get; set; }
 
     [Display(Name = "Reference Number")]
-    public string PedidoReferencia { get; set; }
+    public string DispatchReference { get; set; }
 
-    public List<DispatchLineModel> Lineas { get; set; }
+    public List<DispatchLineModel> Lines { get; set; }
 
     [DataType(DataType.DateTime)]
-    public DateTime FechaCreado { get; set; }
+    public DateTime CreationDate { get; set; }
 
     public Guid Guid { get; set; }
     
-    public string Usuario { get; set; }
+    public string User { get; set; }
 
   }
 
   public class DispatchLineModel
   {
-    public int LineaId { get; set; }
-    public string TipoProducto { get; set; }
-    public string Producto { get; set; }
-    public string Unidad { get; set; }
-    public int Cantidad { get; set; }
-    public int PuestoId { get; set; }
-    public string PuestoLetra { get; set; }
-    public string Comerciante { get; set; }
+    public int LineId { get; set; }
+    public string ProductType { get; set; }
+    public string Product { get; set; }
+    public string Metric { get; set; }
+    public int Quantity { get; set; }
+    public int ShopId { get; set; }
+    public string ShopLetter { get; set; }
+    public string Client { get; set; }
 
-    public string PuestoDescription()
+    public string ShopTitle()
     {
-      return string.IsNullOrEmpty(PuestoLetra)
-               ? PuestoId.ToString()
-               : string.Format("{0}-{1}", PuestoId, PuestoLetra);
+      return string.IsNullOrEmpty(ShopLetter)
+               ? ShopId.ToString()
+               : string.Format("{0}-{1}", ShopId, ShopLetter);
     }
   }
 }

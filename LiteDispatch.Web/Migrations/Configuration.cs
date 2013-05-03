@@ -47,17 +47,17 @@ namespace LiteDispatch.Web.Migrations
     {
       if (!Roles.RoleExists("Haulier")) Roles.CreateRole("Haulier");
 
-      if (!WebSecurity.UserExists("bluewhale"))
+      if (!WebSecurity.UserExists("codeproject"))
       {
         WebSecurity.CreateUserAndAccount(
-          "bluewhale",
-          "password",
+          "codeproject",
+          "litedispatch",
           new { EmailAddress = "bluewhale.staff@lite.dispatch.com" });
       }
 
-      if (!Roles.GetRolesForUser("bluewhale").Contains("Haulier"))
+      if (!Roles.GetRolesForUser("codeproject").Contains("Haulier"))
       {
-        Roles.AddUsersToRoles(new[] { "bluewhale" }, new[] { "Haulier" });
+        Roles.AddUsersToRoles(new[] { "codeproject" }, new[] { "Haulier" });
       }
     }
   }

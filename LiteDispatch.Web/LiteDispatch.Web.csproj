@@ -174,6 +174,7 @@
     <Compile Include="Controllers\DispatchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReleaseNotesController.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,7 +182,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\DispatchLineModel.cs" />
-    <Compile Include="Models\UploadListado.cs" />
+    <Compile Include="Models\UploadDispatchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -313,16 +314,16 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Content\documents\Listado_Plantilla.xlsx" />
+    <Content Include="Content\documents\Dispatch_Template.xlsx" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Dispatch\Index.cshtml" />
     <Content Include="Views\ReleaseNotes\Index.cshtml" />
-    <Content Include="Views\Dispatch\ValidateListado.cshtml" />
+    <Content Include="Views\Dispatch\ValidateDispatch.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Dispatch\Enquiry.cshtml" />
     <Content Include="Views\Dispatch\Listado.cshtml" />
-    <Content Include="Views\Dispatch\DisplayListado.cshtml" />
-    <Content Include="Views\Dispatch\ImprimirListado.cshtml" />
+    <Content Include="Views\Dispatch\DisplayDispatch.cshtml" />
+    <Content Include="Views\Dispatch\PrintDispatch.cshtml" />
     <Content Include="Views\Shared\_LayoutPrint.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />

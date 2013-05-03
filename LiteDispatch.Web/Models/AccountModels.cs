@@ -8,7 +8,7 @@
   public class UsersContext : DbContext
   {
     public UsersContext()
-      : base("LiteDispatch.Security")
+      : base("SecurityDb")
     {
     }
 
