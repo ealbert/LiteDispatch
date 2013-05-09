@@ -5,6 +5,8 @@
   using System.Data.Entity.Infrastructure;
   using System.Threading;
   using System.Web.Mvc;
+  using Domain.Mappings;
+  using EF.TransManager;
   using Models;
   using WebMatrix.WebData;
 
@@ -43,6 +45,14 @@
         catch (Exception ex)
         {
           throw new InvalidOperationException("The ASP.NET Simple Membership database could not be initialized. For more information, please see http://go.microsoft.com/fwlink/?LinkId=256588", ex);
+        }
+
+        using (var context = new LiteDispatchDbContext(new ModelCreator()))
+        {
+          if (!context.Database.Exists())
+          {
+            context.Database.CreateIfNotExists();
+          }
         }
       }
     }

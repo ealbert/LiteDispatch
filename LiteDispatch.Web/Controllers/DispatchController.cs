@@ -5,6 +5,7 @@
   using System.Linq;
   using System.Web;
   using System.Web.Mvc;
+  using Domain.Models;
   using Models;
   using WebMatrix.WebData;
 

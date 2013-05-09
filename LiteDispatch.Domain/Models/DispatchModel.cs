@@ -1,4 +1,4 @@
-﻿namespace LiteDispatch.Web.Models
+﻿namespace LiteDispatch.Domain.Models
 {
   using System;
   using System.Collections.Generic;
@@ -35,24 +35,6 @@
     
     public string User { get; set; }
 
-  }
-
-  public class DispatchLineModel
-  {
-    public int LineId { get; set; }
-    public string ProductType { get; set; }
-    public string Product { get; set; }
-    public string Metric { get; set; }
-    public int Quantity { get; set; }
-    public int ShopId { get; set; }
-    public string ShopLetter { get; set; }
-    public string Client { get; set; }
-
-    public string ShopTitle()
-    {
-      return string.IsNullOrEmpty(ShopLetter)
-               ? ShopId.ToString()
-               : string.Format("{0}-{1}", ShopId, ShopLetter);
-    }
+    public long HaulierId { get; set; }
   }
 }
