@@ -5,6 +5,7 @@
   using System.Linq;
   using System.Web;
   using System.Web.Mvc;
+  using Domain.Entities;
   using Domain.Models;
   using Models;
   using WebMatrix.WebData;
@@ -35,9 +36,9 @@
       return RedirectToAction("ValidateDispatch", model);
     }
 
-    public ActionResult DisplayDispatch(Guid listadoGuid)
+    public ActionResult DisplayDispatch(long listadoId)
     {
-      var listado = Dispatches().SingleOrDefault(l => l.Guid == listadoGuid);
+      var listado = Dispatches().SingleOrDefault(l => l.Id == listadoId);
       return View(listado);
     }
 
@@ -62,14 +63,14 @@
     {
       var dispatch = GetDispatchNote(model);
       const string msg = "{0} - New dispatch note was created with date {1:d} and contains {2} lines";
-      ViewBag.Message = string.Format(msg, dispatch.Transportista, dispatch.DispatchDate, dispatch.Lines.Count);
+      ViewBag.Message = string.Format(msg, dispatch.HaulierName, dispatch.DispatchDate, dispatch.Lines.Count);
       Session.Add("Dispatch", dispatch);
       return View(dispatch);
     }
 
-    public ActionResult PrintDispatch(Guid listadoGuid)
+    public ActionResult PrintDispatch(long listadoId)
     {
-      var dispatch = Dispatches().SingleOrDefault(l => l.Guid == listadoGuid);
+      var dispatch = Dispatches().SingleOrDefault(l => l.Id == listadoId);
       return View(dispatch);
     }      
 
@@ -84,12 +85,12 @@
       return File("~/Content/documents/Dispatch_Template.xlsx", "application/vnd.ms-excel", "Dispatch_Template.xlsx");
     }
 
-    private DispatchModel GetDispatchNote(UploadDispatchModel model)
+    private DispatchNoteModel GetDispatchNote(UploadDispatchModel model)
     {
-      var result = new DispatchModel {State = "Received", DispatchDate = model.DispatchDate.Value, Transportista = "KillerLogistics", TruckReg = model.TruckReg, DispatchReference = model.ReferenceNumber};
+      var result = new DispatchNoteModel {DispatchNoteStatus = DispatchNoteStatusEnum.New, DispatchDate = model.DispatchDate.Value, HaulierName = "KillerLogistics", TruckReg = model.TruckReg, DispatchReference = model.ReferenceNumber};
       var linea = new DispatchLineModel
         {
-          LineId = 1,
+          Id = 1,
           ProductType = "Fresh",
           Product = "Hake",
           Metric = "Kg",
@@ -102,7 +103,7 @@
 
       linea = new DispatchLineModel
       {
-        LineId = 2,
+        Id = 2,
         ProductType = "Frozen",
         Product = "Frozen Squid",
         Metric = "Pallet",
@@ -116,7 +117,7 @@
 
       linea = new DispatchLineModel
       {
-        LineId = 3,
+        Id = 3,
         ProductType = "Shellfish",
         Product = "Mussel",
         Metric = "Sac",
@@ -133,9 +134,10 @@
     public ActionResult Confirm()
     {
       TempData["NotificationMsg"] = "Last dispatch note was confirmed";
-      var dispatchModel = (DispatchModel) Session["Dispatch"];
+      var dispatchModel = (DispatchNoteModel) Session["Dispatch"];
       dispatchModel.CreationDate = DateTime.Now;
-      dispatchModel.Guid = Guid.NewGuid();
+      // ToDo: Need to save here
+      dispatchModel.Id = (new Random()).Next(9999);
       dispatchModel.User = WebSecurity.CurrentUserName;
       Dispatches().Add(dispatchModel);
       return RedirectToAction("Enquiry");
@@ -147,13 +149,13 @@
       return RedirectToAction("Index");
     }
 
-    private List<DispatchModel> Dispatches()
+    private List<DispatchNoteModel> Dispatches()
     {
       if (Session["Dispatches"] == null)
       {
-        Session["Dispatches"] = new List<DispatchModel>();
+        Session["Dispatches"] = new List<DispatchNoteModel>();
       }
-      return (List<DispatchModel>) Session["Dispatches"];
+      return (List<DispatchNoteModel>) Session["Dispatches"];
     }
   }
 }

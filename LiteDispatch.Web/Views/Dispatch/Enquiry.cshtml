@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<LiteDispatch.Domain.Models.DispatchModel>
+﻿@model System.Collections.Generic.List<LiteDispatch.Domain.Models.DispatchNoteModel>
 
 @{
     ViewBag.Title = "Haulier - Active Dispatch Notes";    
@@ -41,15 +41,15 @@
         @foreach (var listado in Model)
         {
             <tr>
-                <td>@listado.Transportista</td>
+                <td>@listado.HaulierName</td>
                 <td>@string.Format("{0:d}", listado.DispatchDate)</td>
                 <td>@listado.DispatchReference</td>
                 <td>@listado.TruckReg</td>
-                <td>@listado.State</td>
+                <td>@listado.DispatchNoteStatus</td>
                 <td>@listado.CreationDate</td>
                 <td>@listado.Lines.Count</td>
-                <td>@Html.ActionLink("detail", "DisplayDispatch", new { listadoGuid = listado.Guid })</td>
-                <td>@Html.ActionLink("print", "PrintDispatch", new { listadoGuid = listado.Guid }, new { target = "_blank"})</td>
+                <td>@Html.ActionLink("detail", "DisplayDispatch", new { listadoId = listado.Id })</td>
+                <td>@Html.ActionLink("print", "PrintDispatch", new { listadoId = listado.Id }, new { target = "_blank"})</td>
             </tr>
         }
     </table>

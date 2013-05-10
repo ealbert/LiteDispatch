@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Data.Entity.ModelConfiguration;
   using Models;
   using Repository;
 
@@ -13,7 +14,7 @@
       DispatchLineSet = new HashSet<DispatchLine>();
     }
 
-    public static DispatchNote Create(IRepositoryLocator locator, DispatchModel model)
+    public static DispatchNote Create(IRepositoryLocator locator, DispatchNoteModel model)
     {
       var haulier = locator.GetById<Haulier>(model.HaulierId);
       var instance = new DispatchNote
@@ -42,12 +43,12 @@
     #region Persisted Properties
 
     public virtual Haulier Haulier { get; private set; }
-    public virtual DateTime DispatchDate { get; private set; }
-    public virtual DispatchNoteStatusEnum DispatchNoteStatus { get; private set; }
-    public virtual string TruckReg { get; private set; }
-    public virtual string DispatchReference { get; private set; }
-    public virtual DateTime CreationDate { get; private set; }
-    public virtual string User { get; private set; }
+    public DateTime DispatchDate { get; private set; }
+    public DispatchNoteStatusEnum DispatchNoteStatus { get; private set; }
+    public string TruckReg { get; private set; }
+    public string DispatchReference { get; private set; }
+    public DateTime CreationDate { get; private set; }
+    public string User { get; private set; }
     protected virtual ICollection<DispatchLine> DispatchLineSet { get; set; }
 
     #endregion
@@ -59,5 +60,14 @@
     }
 
     #endregion
+
+    public class Mapping : EntityTypeConfiguration<DispatchNote>
+    {
+      public Mapping()
+      {
+        HasMany(c => c.DispatchLineSet);
+      }
+    }
+
   }
 }

@@ -1,6 +1,7 @@
 ﻿namespace LiteDispatch.Domain.Entities
 {
   using System.Collections.Generic;
+  using System.Data.Entity.ModelConfiguration;
   using System.Linq;
   using Models;
   using Repository;
@@ -22,7 +23,7 @@
 
     #region Persisted Properties
     
-    public virtual string Name { get; private set; }
+    public string Name { get; private set; }
     protected virtual ICollection<DispatchNote> DispatchNoteSet { get; set; }
 
     #endregion
@@ -34,5 +35,13 @@
     }   
 
     #endregion
+
+    public class Mapping : EntityTypeConfiguration<Haulier>
+    {
+      public Mapping()
+      {
+        HasMany(c => c.DispatchNoteSet).WithRequired(a => a.Haulier);
+      }
+    }
   }
 }

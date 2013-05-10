@@ -2,7 +2,7 @@
 {
   public class DispatchLineModel
   {
-    public int LineId { get; set; }
+    public long Id { get; set; }
     public string ProductType { get; set; }
     public string Product { get; set; }
     public string Metric { get; set; }
