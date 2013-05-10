@@ -36,7 +36,7 @@
     public override void CommitTransaction()
     {
       base.CommitTransaction();
-      _dbContext.GetObjectContext().SaveChanges(SaveOptions.DetectChangesBeforeSave);
+      _dbContext.GetObjectContext().SaveChanges(SaveOptions.AcceptAllChangesAfterSave | SaveOptions.DetectChangesBeforeSave);
       _dbContext.GetObjectContext().AcceptAllChanges();
       _transaction.Commit();
     }

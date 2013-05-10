@@ -29,7 +29,7 @@
     public override void FlushModifications()
     {
       base.FlushModifications();
-      _dbContext.GetObjectContext().SaveChanges(SaveOptions.DetectChangesBeforeSave);
+      _dbContext.GetObjectContext().SaveChanges(SaveOptions.DetectChangesBeforeSave | SaveOptions.AcceptAllChangesAfterSave);
     }
 
     protected override IRepository<TEntity> CreateRepository<TEntity>()
