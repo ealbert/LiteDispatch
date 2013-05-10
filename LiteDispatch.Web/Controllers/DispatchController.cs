@@ -1,10 +1,10 @@
 ﻿namespace LiteDispatch.Web.Controllers
 {
   using System;
-  using System.Collections.Generic;
   using System.Linq;
   using System.Web;
   using System.Web.Mvc;
+  using BusinessAdapters;
   using Domain.Entities;
   using Domain.Models;
   using Models;
@@ -12,6 +12,13 @@
 
   public class DispatchController : Controller
   {
+    public DispatchController()
+    {
+      DispatchAdapter = new DispatchAdapter();
+    }
+
+    public DispatchAdapter DispatchAdapter { get; set; }
+
     public ActionResult Index()
     {
       if (TempData.ContainsKey("NotificationMsg"))
@@ -38,7 +45,7 @@
 
     public ActionResult DisplayDispatch(long listadoId)
     {
-      var listado = Dispatches().SingleOrDefault(l => l.Id == listadoId);
+      var listado = DispatchAdapter.GetDispathNoteById(listadoId);
       return View(listado);
     }
 
@@ -70,13 +77,13 @@
 
     public ActionResult PrintDispatch(long listadoId)
     {
-      var dispatch = Dispatches().SingleOrDefault(l => l.Id == listadoId);
+      var dispatch = DispatchAdapter.GetDispathNoteById(listadoId);
       return View(dispatch);
     }      
 
     public ActionResult Enquiry()
     {
-      var model = Dispatches();
+      var model = DispatchAdapter.GetAllDispatches();
       return View(model);
     }
 
@@ -87,7 +94,14 @@
 
     private DispatchNoteModel GetDispatchNote(UploadDispatchModel model)
     {
-      var result = new DispatchNoteModel {DispatchNoteStatus = DispatchNoteStatusEnum.New, DispatchDate = model.DispatchDate.Value, HaulierName = "KillerLogistics", TruckReg = model.TruckReg, DispatchReference = model.ReferenceNumber};
+      
+      var result = new DispatchNoteModel {DispatchNoteStatus = DispatchNoteStatusEnum.New, DispatchDate = model.DispatchDate.Value, HaulierName = "UnKnown", TruckReg = model.TruckReg, DispatchReference = model.ReferenceNumber};
+      var haulier = Session["UserHaulier"] as HaulierModel;
+      if (haulier != null)
+      {
+        result.HaulierId = haulier.Id;
+        result.HaulierName = haulier.Name;
+      }
       var linea = new DispatchLineModel
         {
           Id = 1,
@@ -139,7 +153,7 @@
       // ToDo: Need to save here
       dispatchModel.Id = (new Random()).Next(9999);
       dispatchModel.User = WebSecurity.CurrentUserName;
-      Dispatches().Add(dispatchModel);
+      DispatchAdapter.SaveDispatch(dispatchModel);
       return RedirectToAction("Enquiry");
     }
 
@@ -147,15 +161,6 @@
     {
       TempData["NotificationMsg"] = "Last dispatch note was discarded";
       return RedirectToAction("Index");
-    }
-
-    private List<DispatchNoteModel> Dispatches()
-    {
-      if (Session["Dispatches"] == null)
-      {
-        Session["Dispatches"] = new List<DispatchNoteModel>();
-      }
-      return (List<DispatchNoteModel>) Session["Dispatches"];
     }
   }
 }

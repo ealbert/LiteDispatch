@@ -3,9 +3,14 @@
   using System;
   using System.Data.Entity;
   using System.Data.Entity.Infrastructure;
+  using System.Linq;
   using System.Threading;
   using System.Web.Mvc;
+  using AutoMapper;
+  using Domain.Entities;
   using Domain.Mappings;
+  using Domain.Models;
+  using Domain.Services;
   using EF.TransManager;
   using Models;
   using WebMatrix.WebData;
@@ -49,9 +54,20 @@
 
         using (var context = new LiteDispatchDbContext(new ModelCreator()))
         {
-          if (!context.Database.Exists())
+          if (context.Database.Exists()) return;
+          context.Database.CreateIfNotExists();
+          using (var transManager = Container.GlobalContext.TransFactory.CreateManager())
           {
-            context.Database.CreateIfNotExists();
+            transManager.ExecuteCommand(locator =>
+              {
+                var haulier = locator.FindAll<Haulier>().SingleOrDefault(h => h.Name == "BlueWhale");
+                if (haulier != null)
+                {
+                  return Mapper.Map<Haulier, HaulierModel>(haulier);
+                }
+                haulier = Haulier.Create(locator, new HaulierModel { Name = "BlueWhale" });
+                return Mapper.Map<Haulier, HaulierModel>(haulier);
+              });
           }
         }
       }

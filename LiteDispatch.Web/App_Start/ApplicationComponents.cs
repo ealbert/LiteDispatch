@@ -15,6 +15,7 @@ namespace LiteDispatch.Web.App_Start
     {
       Container.GlobalContext.TransFactory = new TransManagerFactoryEF(new ModelCreator());
       ModelToEntity.Install();
+      EntityToModel.Install();
     }
   }
 }

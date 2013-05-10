@@ -52,7 +52,7 @@ namespace LiteDispatch.Web.Migrations
         WebSecurity.CreateUserAndAccount(
           "codeproject",
           "litedispatch",
-          new { EmailAddress = "bluewhale.staff@lite.dispatch.com" });
+          new { EmailAddress = "bluewhale.staff@lite.dispatch.com", HaulierName = "BlueWhale" });
       }
 
       if (!Roles.GetRolesForUser("codeproject").Contains("Haulier"))

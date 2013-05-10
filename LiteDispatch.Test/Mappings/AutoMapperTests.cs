@@ -11,6 +11,7 @@
     public void CheckMappings()
     {
       ModelToEntity.Install();
+      EntityToModel.Install();
       Mapper.AssertConfigurationIsValid();
     }
   }
