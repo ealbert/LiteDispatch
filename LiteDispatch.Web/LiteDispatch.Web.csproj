@@ -185,6 +185,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\DomainContextFactory.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\UploadDispatchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
