@@ -35,7 +35,7 @@ namespace LiteDispatch.Web.Controllers
       var last30Days = DispatchAdapter.GetDispatchesBetweenDates(DateTime.Now.Date.AddDays(-30), DateTime.Now.Date.AddDays(1));
       var lastSevenDays = last30Days.Where(d => d.CreationDate >= DateTime.Now.Date.AddDays(-7) && d.CreationDate <= (DateTime.Now.Date.AddDays(1))).ToList();
 
-      ViewBag.LastDispatchMsg = string.Format("{0:d} - Number of lines: {1} - State: {2} - User: {3}",
+      ViewBag.LastDispatchMsg = string.Format("{0:g} - Number of lines: {1} - State: {2} - User: {3}",
                                               lastDispatch.CreationDate, lastDispatch.Lines.Count,
                                               lastDispatch.DispatchNoteStatus, lastDispatch.User);
 

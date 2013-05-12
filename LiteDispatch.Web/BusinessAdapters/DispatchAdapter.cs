@@ -63,7 +63,7 @@ namespace LiteDispatch.Web.BusinessAdapters
       
     private DispatchNoteModel GetLastDispatchImpl(IRepositoryLocator locator)
     {
-      var entity = locator.FindAll<DispatchNote>().OrderBy(d => d.CreationDate).FirstOrDefault();
+      var entity = locator.FindAll<DispatchNote>().OrderByDescending(d => d.CreationDate).FirstOrDefault();
       return Mapper.Map<DispatchNote, DispatchNoteModel>(entity);
     }
 
