@@ -55,5 +55,27 @@ namespace LiteDispatch.Web.BusinessAdapters
       locator.FlushModifications(); // need to flush in order to get the Id into the DTO
       return Mapper.Map<DispatchNote, DispatchNoteModel>(entity);
     }
+
+    public DispatchNoteModel GetLastDispatch()
+    {
+      return ExecuteCommand(GetLastDispatchImpl);
+    }
+      
+    private DispatchNoteModel GetLastDispatchImpl(IRepositoryLocator locator)
+    {
+      var entity = locator.FindAll<DispatchNote>().OrderBy(d => d.CreationDate).FirstOrDefault();
+      return Mapper.Map<DispatchNote, DispatchNoteModel>(entity);
+    }
+
+    public List<DispatchNoteModel> GetDispatchesBetweenDates(DateTime startDate, DateTime endDate)
+    {
+      return ExecuteCommand(locator => GetDispatchesBetweenDatesImpl(locator, startDate, endDate));
+    }
+
+    private List<DispatchNoteModel> GetDispatchesBetweenDatesImpl(IRepositoryLocator locator, DateTime startDate, DateTime endDate)
+    {
+      var dispatches = locator.FindAll<DispatchNote>().Where(d => d.CreationDate >= startDate && d.CreationDate <= endDate).ToList();
+      return Mapper.Map<List<DispatchNote>, List<DispatchNoteModel>>(dispatches);
+    }
   }
 }
