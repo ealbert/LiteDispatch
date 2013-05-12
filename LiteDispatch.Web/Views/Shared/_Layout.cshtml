@@ -14,7 +14,7 @@
     <body>
         <header>
             <div class="content-wrapper">
-                <div class="float-left">
+                <div class="float-left" style="margin-left: -45px">
                     <p class="site-title">
                         
                         <table style="margin-top:0">
@@ -36,13 +36,13 @@
                         </table>
                     </p>
                 </div>
-                <div class="float-right">
+                <div class="float-right" style="margin-right: -45px">
                     <section id="login">
                         @Html.Partial("_LoginPartial")
                     </section>
                     @if (Request.IsAuthenticated)
                     {
-                        <nav style="margin-top: 35px;">
+                        <nav style="margin-top: 75px;">
                             <ul id="menu">
                                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                 <li>@Html.ActionLink("New Dispatch", "Index", "Dispatch")</li>                                
@@ -73,5 +73,12 @@
 
         
         @RenderSection("scripts", required: false)
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".main-content a:not(.no-button)")
+                    .button()
+                    .css("fontSize", "0.8em");
+            });
+        </script>
     </body>
 </html>

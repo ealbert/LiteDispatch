@@ -48,8 +48,10 @@
                 <td>@listado.DispatchNoteStatus</td>
                 <td>@listado.CreationDate</td>
                 <td>@listado.Lines.Count</td>
-                <td>@Html.ActionLink("detail", "DisplayDispatch", new { listadoId = listado.Id })</td>
-                <td>@Html.ActionLink("print", "PrintDispatch", new { listadoId = listado.Id }, new { target = "_blank"})</td>
+                <td>
+                    @Html.ActionLink("detail", "DisplayDispatch", new { listadoId = listado.Id })&nbsp;&nbsp;
+                    @Html.ActionLink("print", "PrintDispatch", new { listadoId = listado.Id }, new { target = "_blank" })
+                </td>
             </tr>
         }
     </table>
