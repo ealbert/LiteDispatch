@@ -1,4 +1,6 @@
-﻿namespace LiteDispatch.Web.Controllers
+﻿using LiteDispatch.Web.Services;
+
+namespace LiteDispatch.Web.Controllers
 {
   using System.Web.Mvc;
 
@@ -7,15 +9,9 @@
     [Authorize]
     public ActionResult Index()
     {
-      if (User.Identity.IsAuthenticated)
-      {
-        ViewBag.Message = "[Haulier's name]";  
-      }
-      else
-      {
-        ViewBag.Message = "Register before using the application";
-      }
-      
+      ViewBag.Message = User.Identity.IsAuthenticated 
+        ? LiteDispatchSession.UserProfile().HaulierName 
+        : "Register before using the application";
 
       return View();
     }

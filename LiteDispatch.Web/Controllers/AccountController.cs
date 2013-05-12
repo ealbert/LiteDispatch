@@ -42,33 +42,12 @@
     {
       if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
       {
-        var context = new UsersContext();
-        var user = context.UserProfiles.SingleOrDefault(u => u.UserName.Equals(model.UserName));
-        var haulier = ExecuteCommand(locator => GetHaulierByName(locator, user.HaulierName));
-        context.GetObjectContext().Detach(user);
-        Session.Add("UserDetails", user);
-        Session.Add("UserHaulier", haulier);
         return RedirectToLocal(returnUrl);
       }
 
       // If we got this far, something failed, redisplay form
       ModelState.AddModelError("", "The user name or password provided is incorrect.");
       return View(model);
-    }
-
-    private HaulierModel GetHaulierByName(IRepositoryLocator locator, string haulierName)
-    {
-      var instance = locator.FindAll<Haulier>().Single(h => h.Name == haulierName);
-      return Mapper.Map<Haulier, HaulierModel>(instance);
-    }
-
-
-    private TResult ExecuteCommand<TResult>(Func<IRepositoryLocator, TResult> command) where TResult : class
-    {
-      using (var transManager = Container.GlobalContext.TransFactory.CreateManager())
-      {
-        return transManager.ExecuteCommand(command);
-      }
     }
 
     //

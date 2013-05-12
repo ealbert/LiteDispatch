@@ -189,6 +189,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\UploadDispatchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\LiteDispatchSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\LiteDispatch.Domain.sdf" />

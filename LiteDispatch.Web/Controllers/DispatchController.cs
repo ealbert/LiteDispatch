@@ -1,4 +1,6 @@
-﻿namespace LiteDispatch.Web.Controllers
+﻿using LiteDispatch.Web.Services;
+
+namespace LiteDispatch.Web.Controllers
 {
   using System;
   using System.Linq;
@@ -71,7 +73,7 @@
       var dispatch = GetDispatchNote(model);
       const string msg = "{0} - New dispatch note was created with date {1:d} and contains {2} lines";
       ViewBag.Message = string.Format(msg, dispatch.HaulierName, dispatch.DispatchDate, dispatch.Lines.Count);
-      Session.Add("Dispatch", dispatch);
+      LiteDispatchSession.LastDispatch = dispatch;
       return View(dispatch);
     }
 
@@ -96,12 +98,9 @@
     {
       
       var result = new DispatchNoteModel {DispatchNoteStatus = DispatchNoteStatusEnum.New, DispatchDate = model.DispatchDate.Value, HaulierName = "UnKnown", TruckReg = model.TruckReg, DispatchReference = model.ReferenceNumber};
-      var haulier = Session["UserHaulier"] as HaulierModel;
-      if (haulier != null)
-      {
-        result.HaulierId = haulier.Id;
-        result.HaulierName = haulier.Name;
-      }
+      var haulier = LiteDispatchSession.UserHaulier();      
+      result.HaulierId = haulier.Id;
+      result.HaulierName = haulier.Name;
       var linea = new DispatchLineModel
         {
           Id = 1,
@@ -148,10 +147,8 @@
     public ActionResult Confirm()
     {
       TempData["NotificationMsg"] = "Last dispatch note was confirmed";
-      var dispatchModel = (DispatchNoteModel) Session["Dispatch"];
+      var dispatchModel = LiteDispatchSession.LastDispatch;
       dispatchModel.CreationDate = DateTime.Now;
-      // ToDo: Need to save here
-      dispatchModel.Id = (new Random()).Next(9999);
       dispatchModel.User = WebSecurity.CurrentUserName;
       DispatchAdapter.SaveDispatch(dispatchModel);
       return RedirectToAction("Enquiry");
