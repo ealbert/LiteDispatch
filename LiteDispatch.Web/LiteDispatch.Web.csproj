@@ -259,6 +259,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\aempm_logo.jpg" />
+    <Content Include="Images\bob.png" />
     <Content Include="Images\cabecera.gif" />
     <Content Include="Images\code_project_logo.gif" />
     <Content Include="Images\deploy_chevrondown.gif" />

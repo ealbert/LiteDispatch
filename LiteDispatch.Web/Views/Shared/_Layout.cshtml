@@ -12,6 +12,7 @@
         @Scripts.Render("~/bundles/jqueryui")
     </head>
     <body>
+        
         <header>
             <div class="content-wrapper">
                 <div class="float-left" style="margin-left: -45px">
@@ -24,12 +25,12 @@
                                 </td>
                                 <td>
                                     <table>
-                                    <tr>
-                                        <td class="featured"><img src="../../Images/lite_dispatch.png" alt="LiteDispatch logo"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="featured">Azure WebSite Example</td>            
-                                    </tr>
+                                        <tr>
+                                            <td class="featured"><img src="../../Images/lite_dispatch.png" alt="LiteDispatch logo"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="featured">Azure WebSite Example</td>            
+                                        </tr>
                                     </table>
                                 </td>                                
                             </tr>                            
@@ -55,6 +56,7 @@
             </div>
         </header>
         <div id="body">
+            
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
