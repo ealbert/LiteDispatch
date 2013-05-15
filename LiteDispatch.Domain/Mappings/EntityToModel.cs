@@ -16,7 +16,7 @@ namespace LiteDispatch.Domain.Mappings
       Mapper.CreateMap<DispatchLine, DispatchLineModel>();
       Mapper.CreateMap<DispatchNote, DispatchNoteModel>()
         .ForMember(d => d.HaulierId, m => m.Ignore())
-        .ForMember(d => d.HaulierName, m => m.UseValue("Bluewhale"))
+        .ForMember(d => d.HaulierName, m => m.MapFrom(s => s.Haulier.Name))
         .ForMember(d => d.Lines, m => m.MapFrom(s => s.DispatchLines()));
 
       Mapper.CreateMap<Haulier, HaulierModel>();
