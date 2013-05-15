@@ -14,14 +14,13 @@
     protected void Application_Start()
     {
       AreaRegistration.RegisterAllAreas();
-
       WebApiConfig.Register(GlobalConfiguration.Configuration);
       FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+      HubConfig.RegisterHubs(RouteTable.Routes);
       RouteConfig.RegisterRoutes(RouteTable.Routes);
       BundleConfig.RegisterBundles(BundleTable.Bundles);
       AuthConfig.RegisterAuth();
-      ApplicationComponents.Register();
-      
+      ApplicationComponents.Register();      
     }
   }
 }
