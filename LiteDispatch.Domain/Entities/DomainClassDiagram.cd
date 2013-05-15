@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LiteDispatch.Domain.Entities.DispatchLine">
+    <Position X="6.25" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAACAAASAAAAAAAAAAAAAAAAAAAAAEACAAAAgAAAAAQ=</HashCode>
+      <FileName>Entities\DispatchLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LiteDispatch.Domain.Entities.DispatchNote">
+    <Position X="3" Y="1.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="LiteDispatch.Domain.Entities.DispatchNote.Mapping" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Entities\DispatchNote.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QAgBAAAABAACAAAAAAAAAAAMAAAAAUAAABAAAAQAAAA=</HashCode>
+      <FileName>Entities\DispatchNote.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Haulier" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="DispatchLineSet" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="LiteDispatch.Domain.Entities.Haulier">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="LiteDispatch.Domain.Entities.Haulier.Mapping" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Entities\Haulier.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAABAAAAAAAAAAAAAQAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Haulier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
