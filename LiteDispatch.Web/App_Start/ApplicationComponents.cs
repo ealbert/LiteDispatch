@@ -5,6 +5,7 @@ using System.Web;
 
 namespace LiteDispatch.Web.App_Start
 {
+  using DbContext;
   using Domain.Mappings;
   using Domain.Services;
   using EF.TransManager;

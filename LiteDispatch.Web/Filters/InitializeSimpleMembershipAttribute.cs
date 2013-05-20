@@ -7,10 +7,12 @@
   using System.Threading;
   using System.Web.Mvc;
   using AutoMapper;
+  using DbContext;
   using Domain.Entities;
   using Domain.Mappings;
   using Domain.Models;
   using Domain.Services;
+  using EF.DbContext;
   using EF.TransManager;
   using Models;
   using WebMatrix.WebData;

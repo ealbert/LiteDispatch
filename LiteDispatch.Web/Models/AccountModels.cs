@@ -2,18 +2,7 @@
 {
   using System.ComponentModel.DataAnnotations;
   using System.ComponentModel.DataAnnotations.Schema;
-  using System.Data.Entity;
   using System.Web.Mvc;
-
-  public class UsersContext : DbContext
-  {
-    public UsersContext()
-      : base("SecurityDb")
-    {
-    }
-
-    public DbSet<UserProfile> UserProfiles { get; set; }
-  }
 
   [Table("UserProfile")]
   public class UserProfile

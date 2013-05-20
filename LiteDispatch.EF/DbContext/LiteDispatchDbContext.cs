@@ -1,4 +1,4 @@
-namespace LiteDispatch.EF.TransManager
+namespace LiteDispatch.EF.DbContext
 {
   using System.Data.Entity;
   using Domain.TransManager;

@@ -1,5 +1,6 @@
 ﻿namespace LiteDispatch.EF.TransManager
 {
+  using DbContext;
   using Domain.TransManager;
 
   public class TransManagerFactoryEF

@@ -10,6 +10,8 @@ using LiteDispatch.Web.Models;
 
 namespace LiteDispatch.Web.Services
 {
+  using DbContext;
+
   public static class LiteDispatchSession
   {
 
