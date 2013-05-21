@@ -1,14 +1,13 @@
-﻿using System.Linq;
-
-namespace LiteDispatch.EF.Context.Migrations
+﻿namespace LiteDispatch.DbContext.Migrations
 {
   using AutoMapper;
-  using DbContext;
   using Domain.Entities;
   using Domain.Mappings;
   using Domain.Models;
   using Domain.TransManager;
-  using TransManager;
+  using System.Linq;
+  using EF.DbContext;
+  using EF.TransManager;
 
   class DomainDbManager
   {

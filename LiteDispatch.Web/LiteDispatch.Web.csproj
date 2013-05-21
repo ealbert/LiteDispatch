@@ -349,9 +349,9 @@
       <Project>{2B57757D-A5C8-47D7-B0D6-E0223069203A}</Project>
       <Name>LiteDispatch.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LiteDispatch.EF.Context\LiteDispatch.EF.Context.csproj">
+    <ProjectReference Include="..\LiteDispatch.EF.Context\LiteDispatch.DbContext.csproj">
       <Project>{0D73EB04-B7C6-43FF-A4BE-1D72016E907E}</Project>
-      <Name>LiteDispatch.EF.Context</Name>
+      <Name>LiteDispatch.DbContext</Name>
     </ProjectReference>
     <ProjectReference Include="..\LiteDispatch.EF\LiteDispatch.EF.csproj">
       <Project>{10C905E4-7DCD-413E-94CB-AAC5CEDFEAA9}</Project>

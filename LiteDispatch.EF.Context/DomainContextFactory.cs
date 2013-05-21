@@ -1,4 +1,4 @@
-﻿namespace LiteDispatch.EF.Context
+﻿namespace LiteDispatch.DbContext
 {
   using System.Data.Entity.Infrastructure;
   using Domain.Mappings;

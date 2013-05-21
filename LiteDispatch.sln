@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDispatch.EF", "LiteDisp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDispatch.Test", "LiteDispatch.Test\LiteDispatch.Test.csproj", "{0D086B1C-D5CE-4D03-9EB3-D7C4B2451CD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDispatch.EF.Context", "LiteDispatch.EF.Context\LiteDispatch.EF.Context.csproj", "{0D73EB04-B7C6-43FF-A4BE-1D72016E907E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDispatch.DbContext", "LiteDispatch.EF.Context\LiteDispatch.DbContext.csproj", "{0D73EB04-B7C6-43FF-A4BE-1D72016E907E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

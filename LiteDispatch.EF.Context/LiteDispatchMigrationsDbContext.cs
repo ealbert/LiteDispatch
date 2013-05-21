@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace LiteDispatch.EF.Context
+﻿namespace LiteDispatch.DbContext
 {
-  using DbContext;
   using Domain.TransManager;
+  using EF.DbContext;
 
   /// <summary>
   /// Replica of the LiteDispatchDbContext for

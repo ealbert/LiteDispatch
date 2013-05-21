@@ -8,8 +8,8 @@
     <ProjectGuid>{0D73EB04-B7C6-43FF-A4BE-1D72016E907E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LiteDispatch.EF.Context</RootNamespace>
-    <AssemblyName>LiteDispatch.EF.Context</AssemblyName>
+    <RootNamespace>LiteDispatch.DbContext</RootNamespace>
+    <AssemblyName>LiteDispatch.DbContext</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
