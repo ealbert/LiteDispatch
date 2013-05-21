@@ -3,15 +3,15 @@ namespace LiteDispatch.EF.Context.Migrations
   using System.Data.Entity.Migrations;
 
   internal sealed class Configuration : DbMigrationsConfiguration<LiteDispatchMigrationsDbContext>
+  {
+    public Configuration()
     {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = false;
-        }
-
-        protected override void Seed(LiteDispatchMigrationsDbContext context)
-        {
-            new DomainDbManager(context).Install();
-        }
+      AutomaticMigrationsEnabled = false;
     }
+
+    protected override void Seed(LiteDispatchMigrationsDbContext context)
+    {
+      new DomainDbManager(context).Install();
+    }
+  }
 }
