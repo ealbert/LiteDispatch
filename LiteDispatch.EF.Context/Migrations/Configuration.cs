@@ -1,4 +1,4 @@
-namespace LiteDispatch.EF.Context.Migrations
+namespace LiteDispatch.DbContext.Migrations
 {
   using System.Data.Entity.Migrations;
 
