@@ -18,6 +18,8 @@ namespace LiteDispatch.Domain.Mappings
       modelBuilder.Configurations
                   .Add(new Haulier.Mapping())
                   .Add(new DispatchNote.Mapping());
+
+      modelBuilder.Entity<PascalRecord>();
     }
 
     #endregion

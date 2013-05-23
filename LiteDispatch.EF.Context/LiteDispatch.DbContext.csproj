@@ -56,6 +56,14 @@
     <Compile Include="Migrations\201305201638003_InitialModel.Designer.cs">
       <DependentUpon>201305201638003_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305230023421_Pascal.cs" />
+    <Compile Include="Migrations\201305230023421_Pascal.Designer.cs">
+      <DependentUpon>201305230023421_Pascal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305230042489_Pascal1.cs" />
+    <Compile Include="Migrations\201305230042489_Pascal1.Designer.cs">
+      <DependentUpon>201305230042489_Pascal1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DomainDbManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +85,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201305201638003_InitialModel.resx">
       <DependentUpon>201305201638003_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305230023421_Pascal.resx">
+      <DependentUpon>201305230023421_Pascal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305230042489_Pascal1.resx">
+      <DependentUpon>201305230042489_Pascal1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

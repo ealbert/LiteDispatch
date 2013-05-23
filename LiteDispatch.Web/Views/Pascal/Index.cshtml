@@ -1,0 +1,49 @@
+﻿@model LiteDispatch.Web.Models.PascalRequestModel
+
+@{
+    ViewBag.Title = "Challenge 3 - Pascal Pyramid";    
+}
+
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <div id="detail_up" class="float-right"><img src="~/Images/deploy_chevronup.gif"/></div>
+            <div id="detail_down" class="float-right"><img src="~/Images/deploy_chevrondown.gif"/></div>
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>                
+                <br/>
+                <h2>@ViewBag.Message</h2>                
+            </hgroup>
+            <div id="featured_detail">
+                <p>
+                    <h5>Observations</h5>
+                    The current implementation only works up to level 32 because it requires to calculate the factorial of the given level<br/>
+                    Factorial of 32 is 263130836933693530167218012160000000 !!! and then factorial of 33 is 8683317618811886495518194401280000000 !!!
+                    Too big for SQL Server to manage.
+                </p>
+            </div>
+        </div>
+    </section>
+}
+
+@using (Html.BeginForm("CalculateLevel", "Pascal"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <li>        
+        @Html.LabelFor(model => model.Level)
+        @Html.EditorFor(model => model.Level)
+        @Html.ValidationMessageFor(m => m.Level)
+        </li>
+        <input type="submit" value="Calculate" />
+    </fieldset>    
+}
+
+@if (Model.PascalRecords != null)
+{
+    <h2>Result</h2>
+    <p>Elapsed Time: @Model.ElapsedTime</p>
+    @Html.Partial("Results", Model.PascalRecords)
+}

@@ -163,9 +163,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BusinessAdapters\DispatchAdapter.cs" />
+    <Compile Include="BusinessAdapters\PascalAdapter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DispatchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PascalController.cs" />
     <Compile Include="Controllers\ReleaseNotesController.cs" />
     <Compile Include="DbContext\UsersContext.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
@@ -181,6 +183,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\SecurityDbManager.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\PascalRequestModel.cs" />
     <Compile Include="Models\UploadDispatchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LiteDispatchSession.cs" />
@@ -326,6 +329,8 @@
     <Content Include="Views\Dispatch\DisplayDispatch.cshtml" />
     <Content Include="Views\Dispatch\PrintDispatch.cshtml" />
     <Content Include="Views\Shared\_LayoutPrint.cshtml" />
+    <Content Include="Views\Pascal\Index.cshtml" />
+    <Content Include="Views\Pascal\Results.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

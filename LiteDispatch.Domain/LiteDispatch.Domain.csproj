@@ -55,6 +55,7 @@
     <Compile Include="Entities\DispatchNoteStatusEnum.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\Haulier.cs" />
+    <Compile Include="Entities\PascalRecord.cs" />
     <Compile Include="Mappings\EntityToModel.cs" />
     <Compile Include="Mappings\ModelCreator.cs" />
     <Compile Include="Mappings\ModelToEntity.cs" />

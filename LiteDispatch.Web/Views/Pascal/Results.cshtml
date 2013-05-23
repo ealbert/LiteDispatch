@@ -1,0 +1,25 @@
+﻿@model List<LiteDispatch.Domain.Entities.PascalRecord>
+
+@{
+    var row = -1;
+}
+<table>
+    
+    @foreach (var record in Model.OrderBy(r => r.Row).ThenBy(r => r.Position))
+    {
+        if (row != record.Row)
+        {
+            if (row != -1)
+            {
+                @:</tr>
+            }
+            @:<tr>
+            row++;
+        }       
+        @:<td>@record.Value</td>
+    }
+    @if (row > -1)
+    {
+        @:</tr>
+    }
+</table>
