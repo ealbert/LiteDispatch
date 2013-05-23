@@ -36,5 +36,13 @@ namespace LiteDispatch.Web.Controllers
       ModelState.AddModelError("", "Please enter a valid level to calculate");
       return View("Index", request);
     }
+
+    public ActionResult RefreshCache(int level)
+    {
+
+      PascalAdapter.FlushCache();
+      ViewBag.Message = "Cache was flushed in the SQL Serve side";
+      return View("Index", new PascalRequestModel{Level = level});
+    }
   }
 }

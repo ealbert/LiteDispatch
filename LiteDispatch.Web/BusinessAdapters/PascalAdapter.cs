@@ -35,7 +35,14 @@
           PascalRecords = results
         };
     }
-    
 
+
+    public void FlushCache()
+    {
+      using (var context = new LiteDispatchDbContext(new ModelCreator()))
+      {
+        context.Database.ExecuteSqlCommand("TRUNCATE TABLE PascalRecords");
+      }
+    }
   }
 }

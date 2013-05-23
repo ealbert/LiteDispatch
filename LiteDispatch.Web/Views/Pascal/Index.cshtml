@@ -11,15 +11,27 @@
             <div id="detail_up" class="float-right"><img src="~/Images/deploy_chevronup.gif"/></div>
             <div id="detail_down" class="float-right"><img src="~/Images/deploy_chevrondown.gif"/></div>
             <hgroup class="title">
-                <h1>@ViewBag.Title</h1>                
-                <br/>
-                <h2>@ViewBag.Message</h2>                
+                <h1>@ViewBag.Title</h1>    
+                @if (ViewBag.Message != null)
+                {
+                    @:<br/><h2>@ViewBag.Message</h2>
+                }                         
             </hgroup>
             <div id="featured_detail">
                 <p>
+                    <h5>Implementation Notes</h5>
+                    As indicated in the <a href="http://www.codeproject.com/script/Awards/View.aspx?cid=637&msg=4570643#xx4570643xx">spot challenge request</a> a stored
+                    procedure is called 10 times and the results are rendered showing the total elapsed time for the 10 requests.<br/>
+                    The database side has been optimized so it has a sort of two level cache implementation in the stored proc, in first place during the execution of
+                    the store proc, it caches factorial results; it also caches node results in the level so subsequent calls are
+                    much faster. These optimizations resulted in a much complicate algorithm and greater number of SQL Server artifacts 
+                    but I hope the results are worthy. I used this cache approach as the
+                    challenge did not mentioned any constraints in this respect, an caching is most of the time the best approach when dealing with latency processes.<br/>
+                    Press the following link if you precise to flush the cache between calculations<br/>
+                    @Html.ActionLink("Flush Cache", "RefreshCache", new {level = Model.Level})
                     <h5>Observations</h5>
-                    The current implementation only works up to level 32 because it requires to calculate the factorial of the given level<br/>
-                    Factorial of 32 is 263130836933693530167218012160000000 !!! and then factorial of 33 is 8683317618811886495518194401280000000 !!!
+                    The current implementation only works up to level 32 because it requires calculating the factorial of the passed level<br/>
+                    Factorial of 32 is 263130836933693530167218012160000000 !!! and then factorial of 33 is 8683317618811886495518194401280000000 !!!<br/>
                     Too big for SQL Server to manage.
                 </p>
             </div>
@@ -46,4 +58,8 @@
     <h2>Result</h2>
     <p>Elapsed Time: @Model.ElapsedTime</p>
     @Html.Partial("Results", Model.PascalRecords)
+}
+@section scripts
+{
+    <script src="~/Scripts/feature-detail.js" type="text/javascript"></script>
 }
