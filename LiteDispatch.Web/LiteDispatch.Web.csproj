@@ -265,6 +265,7 @@
     <Content Include="Images\download.png" />
     <Content Include="Images\liteDispatch_logo.jpg" />
     <Content Include="Images\lite_dispatch.png" />
+    <Content Include="Images\tracking_mock.png" />
     <Content Include="Scripts\feature-detail.js" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />

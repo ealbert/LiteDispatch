@@ -90,6 +90,10 @@ h5, h6 {
         text-decoration: none;
     }
 
+#mock {
+    background: url("../Images/tracking_mock.png") no-repeat;
+    min-height: 800px;
+}
 
 /* main layout
 ----------------------------------------------------------*/
@@ -773,4 +777,5 @@ tr.pager td {
         footer p {
             margin: 0;
         }
+   
 }
