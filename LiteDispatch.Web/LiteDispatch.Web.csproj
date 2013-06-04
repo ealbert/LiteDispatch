@@ -168,6 +168,7 @@
     <Compile Include="Controllers\DispatchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PascalController.cs" />
+    <Compile Include="Controllers\MobileTrackingController.cs" />
     <Compile Include="Controllers\ReleaseNotesController.cs" />
     <Compile Include="DbContext\UsersContext.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
@@ -331,6 +332,7 @@
     <Content Include="Views\Shared\_LayoutPrint.cshtml" />
     <Content Include="Views\Pascal\Index.cshtml" />
     <Content Include="Views\Pascal\Results.cshtml" />
+    <Content Include="Views\MobileTracking\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
