@@ -3,6 +3,7 @@
   public enum DispatchNoteStatusEnum
   {
     New,
+    InTransit,
     Received,
     Processed,
     Cancelled,

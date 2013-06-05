@@ -12,6 +12,7 @@
     {
       ModelToEntity.Install();
       EntityToModel.Install();
+      DtoToEntity.Install();
       Mapper.AssertConfigurationIsValid();
     }
   }

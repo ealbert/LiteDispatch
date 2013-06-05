@@ -62,5 +62,7 @@ namespace LiteTracking.Web.Controllers
       _bingMapsKey = ConfigurationManager.AppSettings["BingMapsKey"];
       return _bingMapsKey;
     }
+
+
   }
 }

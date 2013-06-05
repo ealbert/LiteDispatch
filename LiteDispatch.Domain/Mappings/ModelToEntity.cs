@@ -5,7 +5,9 @@ using System.Text;
 
 namespace LiteDispatch.Domain.Mappings
 {
+  using System.Linq.Expressions;
   using AutoMapper;
+  using Core.DTOs;
   using Entities;
   using Models;
 
@@ -20,4 +22,6 @@ namespace LiteDispatch.Domain.Mappings
       Mapper.CreateMap<HaulierModel, Haulier>();
     }
   }
+
+  
 }

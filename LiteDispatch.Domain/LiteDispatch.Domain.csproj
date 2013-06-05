@@ -53,9 +53,13 @@
     <Compile Include="Entities\DispatchLine.cs" />
     <Compile Include="Entities\DispatchNote.cs" />
     <Compile Include="Entities\DispatchNoteStatusEnum.cs" />
+    <Compile Include="Entities\DistanceMetricEnum.cs" />
+    <Compile Include="Entities\DurationMetricEnum.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\Haulier.cs" />
     <Compile Include="Entities\PascalRecord.cs" />
+    <Compile Include="Entities\TrackingNotification.cs" />
+    <Compile Include="Mappings\DtoToEntity.cs" />
     <Compile Include="Mappings\EntityToModel.cs" />
     <Compile Include="Mappings\ModelCreator.cs" />
     <Compile Include="Mappings\ModelToEntity.cs" />
@@ -81,7 +85,12 @@
     <None Include="Entities\DomainClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\LiteDispatch.Core\LiteDispatch.Core.csproj">
+      <Project>{E06BB567-32F3-4653-A23E-FC7D9E84B053}</Project>
+      <Name>LiteDispatch.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

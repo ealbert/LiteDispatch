@@ -170,6 +170,7 @@
     <Compile Include="Controllers\PascalController.cs" />
     <Compile Include="Controllers\MobileTrackingController.cs" />
     <Compile Include="Controllers\ReleaseNotesController.cs" />
+    <Compile Include="Controllers\TrackingController.cs" />
     <Compile Include="DbContext\UsersContext.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -353,6 +354,10 @@
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LiteDispatch.Core\LiteDispatch.Core.csproj">
+      <Project>{E06BB567-32F3-4653-A23E-FC7D9E84B053}</Project>
+      <Name>LiteDispatch.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LiteDispatch.Domain\LiteDispatch.Domain.csproj">
       <Project>{2B57757D-A5C8-47D7-B0D6-E0223069203A}</Project>
       <Name>LiteDispatch.Domain</Name>

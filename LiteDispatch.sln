@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDispatch.DbContext", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteTracking.Web", "LiteTracking.Web\LiteTracking.Web.csproj", "{4BE53F11-CC10-4478-AAF0-7E2D52CEEFE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDispatch.Core", "LiteDispatch.Core\LiteDispatch.Core.csproj", "{E06BB567-32F3-4653-A23E-FC7D9E84B053}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{4BE53F11-CC10-4478-AAF0-7E2D52CEEFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BE53F11-CC10-4478-AAF0-7E2D52CEEFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BE53F11-CC10-4478-AAF0-7E2D52CEEFE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06BB567-32F3-4653-A23E-FC7D9E84B053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06BB567-32F3-4653-A23E-FC7D9E84B053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06BB567-32F3-4653-A23E-FC7D9E84B053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06BB567-32F3-4653-A23E-FC7D9E84B053}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
