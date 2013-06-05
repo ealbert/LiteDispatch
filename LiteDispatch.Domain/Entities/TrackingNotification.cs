@@ -5,6 +5,7 @@ using System.Text;
 
 namespace LiteDispatch.Domain.Entities
 {
+  using System.Data.Entity.ModelConfiguration;
   using AutoMapper;
   using Core.DTOs;
   using Models;
@@ -15,21 +16,21 @@ namespace LiteDispatch.Domain.Entities
   {
     protected TrackingNotification() {}
 
-    public static TrackingNotification Create(IRepositoryLocator locator, TrackingNotificationDto dto)
-    {
-      var dispatchNote = locator.GetById<DispatchNote>(dto.DispatchNoteId);
+    public static TrackingNotification Create(IRepositoryLocator locator, TrackingNotificationDto dto, DispatchNote dispatchNote)
+    {      
       var instance = Mapper.Map<TrackingNotification>(dto);
       instance.DispatchNote = dispatchNote;
       return locator.Save(instance);
     }
 
-    public DispatchNote DispatchNote { get; private set; }
+    public virtual DispatchNote DispatchNote { get; private set; }
     public double Distance { get; private set; }
-    public double Eta { get; private set; }
-    public DistanceMetricEnum DistanceMetric { get; private set; }
-    public DurationMetricEnum DurationMetric { get; private set; }
+    public double Duration { get; private set; }
+    public string DistanceMetric { get; private set; }
+    public string DurationMetric { get; private set; }
     public double Latitude { get; private set; }
     public double Longitude { get; private set; }
+
   }
 
 

@@ -162,8 +162,10 @@
     <Compile Include="App_Start\HubConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BusinessAdapters\BaseAdapter.cs" />
     <Compile Include="BusinessAdapters\DispatchAdapter.cs" />
     <Compile Include="BusinessAdapters\PascalAdapter.cs" />
+    <Compile Include="BusinessAdapters\TrackingAdapter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DispatchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -369,6 +371,10 @@
     <ProjectReference Include="..\LiteDispatch.EF\LiteDispatch.EF.csproj">
       <Project>{10C905E4-7DCD-413E-94CB-AAC5CEDFEAA9}</Project>
       <Name>LiteDispatch.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LiteDispatch.SqlCe.DbContext\LiteDispatch.SqlCe.DbContext.csproj">
+      <Project>{3BF9D418-AAA7-452C-83C4-1895804A7C6D}</Project>
+      <Name>LiteDispatch.SqlCe.DbContext</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

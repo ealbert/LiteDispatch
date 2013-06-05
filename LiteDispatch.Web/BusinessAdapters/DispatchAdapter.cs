@@ -9,15 +9,13 @@ namespace LiteDispatch.Web.BusinessAdapters
   using Domain.Entities;
   using Domain.Models;
   using Domain.Repository;
-  using Domain.Services;
 
-  public class DispatchAdapter
+  public class DispatchAdapter : BaseAdapter
   {
     public DispatchNoteModel GetDispathNoteById(long id)
     {
       return ExecuteCommand(locator => GetDispathNoteByIdImpl(locator, id));
     }
-
 
     private DispatchNoteModel GetDispathNoteByIdImpl(IRepositoryLocator locator, long id)
     {
@@ -34,14 +32,6 @@ namespace LiteDispatch.Web.BusinessAdapters
     {
       var instances = locator.FindAll<DispatchNote>().ToList();
       return Mapper.Map<List<DispatchNote>, List<DispatchNoteModel>>(instances);
-    }
-
-    private TResult ExecuteCommand<TResult>(Func<IRepositoryLocator, TResult> command) where TResult : class
-    {
-      using (var transManager = Container.GlobalContext.TransFactory.CreateManager())
-      {
-        return transManager.ExecuteCommand(command);
-      }
     }
 
     public DispatchNoteModel SaveDispatch(DispatchNoteModel dispatchModel)

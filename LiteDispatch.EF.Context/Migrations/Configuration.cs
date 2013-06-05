@@ -2,7 +2,7 @@ namespace LiteDispatch.DbContext.Migrations
 {
   using System.Data.Entity.Migrations;
 
-  internal sealed class Configuration : DbMigrationsConfiguration<LiteDispatchMigrationsDbContext>
+  public class Configuration : DbMigrationsConfiguration<LiteDispatchMigrationsDbContext>
   {
     public Configuration()
     {

@@ -42,11 +42,14 @@
             <th>State</th>
             <th>Creation Date</th>
             <th>Lines</th>
+            <th>Duration</th>
+            <th>Distance (kms)</th>
             <th></th>
         </thead>
         @foreach (var listado in Model)
         {
-            <tr>
+            
+            <tr id="@string.Format("listado_{0}", listado.Id)">
                 <td>@listado.HaulierName</td>
                 <td>@string.Format("{0:d}", listado.DispatchDate)</td>
                 <td>@listado.DispatchReference</td>
@@ -54,11 +57,14 @@
                 <td>@listado.DispatchNoteStatus</td>
                 <td>@listado.CreationDate</td>
                 <td>@listado.Lines.Count</td>
+                <td>@listado.Duration</td>
+                <td>@listado.Distance</td>
                 <td>
                     @Html.ActionLink("detail", "DisplayDispatch", new { listadoId = listado.Id })&nbsp;&nbsp;
                     @Html.ActionLink("print", "PrintDispatch", new { listadoId = listado.Id }, new { target = "_blank" })
                 </td>
             </tr>
+            
         }
     </table>
     <input type="hidden" id="userName"/>

@@ -6,7 +6,7 @@ namespace LiteDispatch.Domain.Mappings
   using TransManager;
 
   /// <summary>
-  /// LiteDispatch customised entity model creator 
+  /// LiteDispatch customized entity model creator 
   /// </summary>
   public class ModelCreator : IModelCreator
   {

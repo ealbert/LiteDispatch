@@ -30,11 +30,13 @@
 
     [DataType(DataType.DateTime)]
     public DateTime CreationDate { get; set; }        
+    
     public string User { get; set; }
-
-    public List<DispatchLineModel> Lines { get; set; }
-
     public long HaulierId { get; set; }
     public string HaulierName { get; set; }
+    public List<DispatchLineModel> Lines { get; set; }
+
+    public string Distance { get; set; }
+    public string Duration { get; set; }
   }
 }

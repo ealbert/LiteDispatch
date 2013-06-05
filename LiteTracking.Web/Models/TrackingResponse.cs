@@ -11,7 +11,12 @@ namespace LiteTracking.Web.Models
     public double Longitude { get; set; }
     public double Distance { get; set; }
     public string DistanceMetric { get; set; }
-    public double Eta { get; set; }
-    public string EtaMetric { get; set; }
+    public double Duration { get; set; }
+    public string DurationMetric { get; set; }
+    public string TruckRegistration { get; set; }
+    public bool NotificationWasCreated { get; set; }
+    public Guid RequestGuid { get; set; }
+    public long DispatchNoteId { get; set; }
+    public string Error { get; set; }
   }
 }

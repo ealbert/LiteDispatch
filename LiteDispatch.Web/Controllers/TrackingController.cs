@@ -7,14 +7,22 @@ using System.Web.Http;
 
 namespace LiteDispatch.Web.Controllers
 {
+  using BusinessAdapters;
   using Core.DTOs;
 
   public class TrackingController : ApiController
+  {
+    public TrackingController()
     {
-      [HttpPost]
-      public TrackingResponseDto ReceiveTrackingNotification(TrackingNotificationDto dto)
-      {        
-        return new TrackingResponseDto{Accepted = true, NotificationId = dto.Id};
-      }
+      TrackingAdapter = new TrackingAdapter();
     }
+
+    public TrackingAdapter TrackingAdapter { get; set; }
+
+    [HttpPost]
+    public TrackingResponseDto CreateTrackingNotification(TrackingNotificationDto dto)
+    {
+      return TrackingAdapter.CreateTrackingNotification(dto);
+    }
+  }
 }

@@ -9,6 +9,7 @@ namespace LiteTracking.Web.Controllers
 {
   using System.Configuration;
   using System.Runtime.Serialization.Json;
+  using LiteDispatch.Core.DTOs;
   using Models;
   using Models.BingMaps;
 
@@ -34,12 +35,53 @@ namespace LiteTracking.Web.Controllers
         if (routeDetails != null)
         {
           response.Distance = routeDetails.TravelDistance;
-          response.Eta = routeDetails.TravelDuration;
+          response.Duration = routeDetails.TravelDuration;
           response.DistanceMetric = routeDetails.DistanceUnit;
-          response.EtaMetric = routeDetails.DurationUnit;
+          response.DurationMetric = routeDetails.DurationUnit;
+          response.TruckRegistration = truckRegistration;
+
+          SendNotification(response);
         }
       }
+
       return response;
+    }
+
+    private void SendNotification(TrackingResponse response)
+    {
+      using (var client = new WebClient())
+      {
+        client.Headers[HttpRequestHeader.ContentType] = "application/json";
+        var user = new TrackingNotificationDto
+          {
+            Distance = response.Distance,
+            DistanceMetric = response.DistanceMetric,
+            Duration = response.Duration,
+            DurationMetric = response.DurationMetric,
+            Latitude = response.Latitude,
+            Longitude = response.Longitude,
+            TruckRegistration = response.TruckRegistration,
+            Id = Guid.NewGuid()
+          };
+
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(user);
+        var result = client.UploadString(GetTrackingNotificationUri(), json);
+        var dto = Newtonsoft.Json.JsonConvert.DeserializeObject<TrackingResponseDto>(result);
+        response.NotificationWasCreated = dto.Accepted;
+        response.RequestGuid = dto.NotificationId;
+        response.DispatchNoteId = dto.DispatchNoteId;
+        response.Error = dto.Error;
+        var r = dto;
+      }
+    }
+
+    private static string _trackingNotificationUri;
+    
+    private string GetTrackingNotificationUri()
+    {
+      if (_trackingNotificationUri != null) return _trackingNotificationUri;
+      _trackingNotificationUri = string.Format("http://{0}/api/tracking/CreateTrackingNotification", ConfigurationManager.AppSettings["TrackingNotificationHost"]);
+      return _trackingNotificationUri;
     }
 
     private Response GetRouteDetails(Uri uri)

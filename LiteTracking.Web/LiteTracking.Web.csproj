@@ -244,6 +244,12 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\ToFile.pubxml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LiteDispatch.Core\LiteDispatch.Core.csproj">
+      <Project>{E06BB567-32F3-4653-A23E-FC7D9E84B053}</Project>
+      <Name>LiteDispatch.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

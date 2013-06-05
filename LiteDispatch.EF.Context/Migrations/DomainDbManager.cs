@@ -9,7 +9,7 @@
   using EF.DbContext;
   using EF.TransManager;
 
-  class DomainDbManager
+  public class DomainDbManager
   {
     public IModelCreator ModelCreator { get; set; }
     public DomainDbManager(LiteDispatchDbContext context)

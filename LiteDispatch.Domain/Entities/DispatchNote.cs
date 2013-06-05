@@ -3,12 +3,17 @@
   using System;
   using System.Collections.Generic;
   using System.Data.Entity.ModelConfiguration;
+  using Core.DTOs;
   using Models;
   using Repository;
 
   public class DispatchNote
     :EntityBase
   {
+    public const string New = "New";
+    public const string InTransit = "InTransit";
+    public const string Received = "Received";
+
     protected DispatchNote()
     {
       DispatchLineSet = new HashSet<DispatchLine>();
@@ -21,7 +26,7 @@
         {
           CreationDate = model.CreationDate,
           DispatchDate = model.DispatchDate,
-          DispatchNoteStatus = DispatchNoteStatusEnum.New,
+          DispatchNoteStatus = New,
           DispatchReference = model.DispatchReference,
           Haulier = haulier,
           TruckReg = model.TruckReg,
@@ -44,11 +49,12 @@
 
     public virtual Haulier Haulier { get; private set; }
     public DateTime DispatchDate { get; private set; }
-    public DispatchNoteStatusEnum DispatchNoteStatus { get; private set; }
+    public string DispatchNoteStatus { get; private set; }
     public string TruckReg { get; private set; }
     public string DispatchReference { get; private set; }
     public DateTime CreationDate { get; private set; }
     public string User { get; private set; }
+    public virtual TrackingNotification LastTrackingNotification { get; private set; }
     protected virtual ICollection<DispatchLine> DispatchLineSet { get; set; }
 
     #endregion
@@ -65,9 +71,30 @@
     {
       public Mapping()
       {
-        HasMany(c => c.DispatchLineSet);
+        HasMany(d => d.DispatchLineSet);
+        HasOptional(d => d.LastTrackingNotification).WithMany();
       }
     }
 
+    public TrackingResponseDto CreateTrackingNotification(IRepositoryLocator locator, TrackingNotificationDto dto, TrackingResponseDto response)
+    {
+      if (!(DispatchNoteStatus == New |
+            DispatchNoteStatus == InTransit))
+      {
+
+        response.Error = "DispatchNote was found but its status was not new or in-transit, it was: " + DispatchNoteStatus;
+        return response;
+      }
+
+      if (DispatchNoteStatus == New)
+      {
+        DispatchNoteStatus = InTransit;
+      }
+
+      var trackingNotification = TrackingNotification.Create(locator, dto, this);
+      LastTrackingNotification = trackingNotification;
+      response.Accepted = true;
+      return response;
+    }    
   }
 }
