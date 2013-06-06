@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201306052314307_InitialModelWithTracking.Designer.cs">
       <DependentUpon>201306052314307_InitialModelWithTracking.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306062229072_DispatchNoteLastUpdateField.cs" />
+    <Compile Include="Migrations\201306062229072_DispatchNoteLastUpdateField.Designer.cs">
+      <DependentUpon>201306062229072_DispatchNoteLastUpdateField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DomainSqlCeDbManager.cs" />
     <Compile Include="SqlCeDomainContextFactory.cs" />
@@ -81,6 +85,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201306052314307_InitialModelWithTracking.resx">
       <DependentUpon>201306052314307_InitialModelWithTracking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306062229072_DispatchNoteLastUpdateField.resx">
+      <DependentUpon>201306062229072_DispatchNoteLastUpdateField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

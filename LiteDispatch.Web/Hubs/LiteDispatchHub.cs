@@ -5,6 +5,7 @@ using System.Web;
 
 namespace LiteDispatch.Web.Hubs
 {
+  using Domain.Models;
   using Microsoft.AspNet.SignalR;
 
   public class LiteDispatchHub : Hub

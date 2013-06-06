@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201306052320059_TrackingEntities.Designer.cs">
       <DependentUpon>201306052320059_TrackingEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306062240202_DispatchNoteLastUpdateField.cs" />
+    <Compile Include="Migrations\201306062240202_DispatchNoteLastUpdateField.Designer.cs">
+      <DependentUpon>201306062240202_DispatchNoteLastUpdateField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DomainDbManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306052320059_TrackingEntities.resx">
       <DependentUpon>201306052320059_TrackingEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306062240202_DispatchNoteLastUpdateField.resx">
+      <DependentUpon>201306062240202_DispatchNoteLastUpdateField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

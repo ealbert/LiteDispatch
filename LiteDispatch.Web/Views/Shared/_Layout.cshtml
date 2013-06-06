@@ -78,11 +78,13 @@
         
         @RenderSection("scripts", required: false)
         <script type="text/javascript">
-            $(document).ready(function() {
+            $(document).ready(linksToButtons);
+
+            var linksToButtons = function () {
                 $(".main-content a:not(.no-button)")
                     .button()
                     .css("fontSize", "0.8em");
-            });
+            };
         </script>
     </body>
 </html>

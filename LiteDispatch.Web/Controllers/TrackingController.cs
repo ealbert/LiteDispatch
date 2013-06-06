@@ -9,6 +9,8 @@ namespace LiteDispatch.Web.Controllers
 {
   using BusinessAdapters;
   using Core.DTOs;
+  using Hubs;
+  using Microsoft.AspNet.SignalR;
 
   public class TrackingController : ApiController
   {
@@ -22,7 +24,13 @@ namespace LiteDispatch.Web.Controllers
     [HttpPost]
     public TrackingResponseDto CreateTrackingNotification(TrackingNotificationDto dto)
     {
-      return TrackingAdapter.CreateTrackingNotification(dto);
+      var response = TrackingAdapter.CreateTrackingNotification(dto);
+      if (response.DispatchNoteId > 0)
+      {
+        var hubContext = GlobalHost.ConnectionManager.GetHubContext<LiteDispatchHub>();
+        hubContext.Clients.All.updateDispatch(response.DispatchNoteId);
+      }
+      return response;
     }
   }
 }

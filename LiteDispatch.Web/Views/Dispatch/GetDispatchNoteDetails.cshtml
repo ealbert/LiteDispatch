@@ -1,0 +1,17 @@
+﻿@model LiteDispatch.Domain.Models.DispatchNoteModel
+
+<tr id="@string.Format("listado_{0}", Model.Id)">
+    <td>@Model.HaulierName</td>
+    <td>@string.Format("{0:d}", Model.DispatchDate)</td>
+    <td>@Model.DispatchReference</td>
+    <td>@Model.TruckReg</td>
+    <td>@Model.DispatchNoteStatus</td>
+    <td>@Model.LastUpdate</td>
+    <td>@Model.Lines.Count</td>
+    <td>@Model.Duration</td>
+    <td>@Model.Distance</td>
+    <td>
+        @Html.ActionLink("detail", "DisplayDispatch", new { listadoId = Model.Id })&nbsp;&nbsp;
+        @Html.ActionLink("print", "PrintDispatch", new { listadoId = Model.Id }, new { target = "_blank" })
+    </td>
+</tr>

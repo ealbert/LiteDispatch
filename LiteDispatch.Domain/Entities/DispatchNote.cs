@@ -25,6 +25,7 @@
       var instance = new DispatchNote
         {
           CreationDate = model.CreationDate,
+          LastUpdate = model.CreationDate,
           DispatchDate = model.DispatchDate,
           DispatchNoteStatus = New,
           DispatchReference = model.DispatchReference,
@@ -53,6 +54,7 @@
     public string TruckReg { get; private set; }
     public string DispatchReference { get; private set; }
     public DateTime CreationDate { get; private set; }
+    public DateTime LastUpdate { get; private set; }
     public string User { get; private set; }
     public virtual TrackingNotification LastTrackingNotification { get; private set; }
     protected virtual ICollection<DispatchLine> DispatchLineSet { get; set; }
@@ -91,6 +93,7 @@
         DispatchNoteStatus = InTransit;
       }
 
+      LastUpdate = DateTime.Now;
       var trackingNotification = TrackingNotification.Create(locator, dto, this);
       LastTrackingNotification = trackingNotification;
       response.Accepted = true;

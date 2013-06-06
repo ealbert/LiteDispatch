@@ -18,7 +18,8 @@ namespace LiteDispatch.Domain.Mappings
       Mapper.CreateMap<DispatchLineModel, DispatchLine>();
       Mapper.CreateMap<DispatchNoteModel, DispatchNote>()
         .ForMember(d => d.Haulier, m => m.Ignore())
-        .ForMember(d => d.LastTrackingNotification, m => m.Ignore());
+        .ForMember(d => d.LastTrackingNotification, m => m.Ignore())       
+        ;
 
       Mapper.CreateMap<HaulierModel, Haulier>();
     }

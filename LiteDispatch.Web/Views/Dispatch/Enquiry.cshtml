@@ -40,31 +40,15 @@
             <th>Reference</th>
             <th>Truck</th>
             <th>State</th>
-            <th>Creation Date</th>
+            <th>Last Update</th>
             <th>Lines</th>
             <th>Duration</th>
             <th>Distance (kms)</th>
             <th></th>
         </thead>
         @foreach (var listado in Model)
-        {
-            
-            <tr id="@string.Format("listado_{0}", listado.Id)">
-                <td>@listado.HaulierName</td>
-                <td>@string.Format("{0:d}", listado.DispatchDate)</td>
-                <td>@listado.DispatchReference</td>
-                <td>@listado.TruckReg</td>
-                <td>@listado.DispatchNoteStatus</td>
-                <td>@listado.CreationDate</td>
-                <td>@listado.Lines.Count</td>
-                <td>@listado.Duration</td>
-                <td>@listado.Distance</td>
-                <td>
-                    @Html.ActionLink("detail", "DisplayDispatch", new { listadoId = listado.Id })&nbsp;&nbsp;
-                    @Html.ActionLink("print", "PrintDispatch", new { listadoId = listado.Id }, new { target = "_blank" })
-                </td>
-            </tr>
-            
+        {            
+            @Html.Partial("GetDispatchNoteDetails", listado)            
         }
     </table>
     <input type="hidden" id="userName"/>
@@ -78,9 +62,14 @@ else
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#listados > tbody tr:odd").css("background-color", "#F7F7F7");
-            $("#listados > thead th").css("padding-right", "20px"); // ToDo: Use CSS to do this
+            setListadoStyle();
         });
+        var setListadoStyle = function() {
+            $("#listados > tbody tr:odd").css("background-color", "#F7F7F7");
+            $("#listados > tbody tr:even").css("background-color", "#EFEEEF");
+            $("#listados > thead th").css("padding-right", "20px"); // ToDo: Use CSS to do this
+        };
+        
     </script>
     <script src="~/Scripts/feature-detail.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -90,6 +79,31 @@ else
         chat.client.addNewMessageToPage = function(name, message) {
             alert("Message from: " + name + "\r\r" + message);
         };
+
+        chat.client.newDispatch = function (dispatchId) {
+            alert("A new DispatchNote was created by other user with Id: " + dispatchId);
+            $.get('@Url.Action("GetDispatchNoteDetails", "Dispatch")' + '?dispatchId=' + dispatchId, function (html) {
+                $('#listados').prepend(html);
+                $('#listado_' + dispatchId).hide();
+                setListadoStyle();
+                linksToButtons();
+                $('#listado_' + dispatchId).show(2000);
+            });
+        };
+
+        chat.client.updateDispatch = function (dispatchId) {
+            alert("An existing DispatchNote was updated by other user with Id: " + dispatchId);
+            $.get('@Url.Action("GetDispatchNoteDetails","Dispatch")' + '?dispatchId=' + dispatchId, function (html) {
+                
+                $('#listado_' + dispatchId).hide("slow").remove();
+                $('#listados').prepend(html);
+                $('#listado_' + dispatchId).hide();
+                setListadoStyle();
+                linksToButtons();
+                $('#listado_' + dispatchId).show(2000);
+            });
+        };
+
         $.connection.hub.start().done(function () {
             $('#sendMessage').click(function () {
                 var userName = $('#userName').val();

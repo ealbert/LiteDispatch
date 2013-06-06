@@ -9,6 +9,8 @@ namespace LiteDispatch.Web.Controllers
   using BusinessAdapters;
   using Domain.Entities;
   using Domain.Models;
+  using Hubs;
+  using Microsoft.AspNet.SignalR;
   using Models;
   using WebMatrix.WebData;
 
@@ -150,8 +152,16 @@ namespace LiteDispatch.Web.Controllers
       var dispatchModel = LiteDispatchSession.LastDispatch;
       dispatchModel.CreationDate = DateTime.Now;
       dispatchModel.User = WebSecurity.CurrentUserName;
-      DispatchAdapter.SaveDispatch(dispatchModel);
+      var savedDispatch = DispatchAdapter.SaveDispatch(dispatchModel);
+      var hubContext = GlobalHost.ConnectionManager.GetHubContext<LiteDispatchHub>();
+      hubContext.Clients.All.newDispatch(savedDispatch.Id);
       return RedirectToAction("Enquiry");
+    }
+
+    public ActionResult GetDispatchNoteDetails(long dispatchId)
+    {
+      var dispatch = DispatchAdapter.GetDispathNoteById(dispatchId);
+      return PartialView(dispatch);
     }
 
     public ActionResult Discard()
