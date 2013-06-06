@@ -24,9 +24,16 @@ namespace LiteTracking.Web.Controllers
           Longitude = longitude
         };
 
-      const string query = @"http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0={0},{1}&wp.1={2},{3}&optmz=distance&rpo=Points&key={4}";
-      var origin = new[] { 52.516071, 13.37698 };
-      var  uri = new Uri(string.Format(query, latitude, longitude, origin[0], origin[1], GetKey()));
+      ProcessRequest(truckRegistration, latitude, longitude, response);
+      return response;
+    }
+
+    private void ProcessRequest(string truckRegistration, double latitude, double longitude, TrackingResponse response)
+    {
+      const string query =
+        @"http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0={0},{1}&wp.1={2},{3}&optmz=distance&rpo=Points&key={4}";
+      var origin = new[] {52.516071, 13.37698};
+      var uri = new Uri(string.Format(query, latitude, longitude, origin[0], origin[1], GetKey()));
 
       var bingResponse = GetRouteDetails(uri);
       if (bingResponse.ResourceSets.Any() && bingResponse.ResourceSets[0].Resources.Any())
@@ -43,8 +50,6 @@ namespace LiteTracking.Web.Controllers
           SendNotification(response);
         }
       }
-
-      return response;
     }
 
     private void SendNotification(TrackingResponse response)
@@ -52,7 +57,7 @@ namespace LiteTracking.Web.Controllers
       using (var client = new WebClient())
       {
         client.Headers[HttpRequestHeader.ContentType] = "application/json";
-        var user = new TrackingNotificationDto
+        var notificationDto = new TrackingNotificationDto
           {
             Distance = response.Distance,
             DistanceMetric = response.DistanceMetric,
@@ -64,7 +69,7 @@ namespace LiteTracking.Web.Controllers
             Id = Guid.NewGuid()
           };
 
-        var json = Newtonsoft.Json.JsonConvert.SerializeObject(user);
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(notificationDto);
         var result = client.UploadString(GetTrackingNotificationUri(), json);
         var dto = Newtonsoft.Json.JsonConvert.DeserializeObject<TrackingResponseDto>(result);
         response.NotificationWasCreated = dto.Accepted;
