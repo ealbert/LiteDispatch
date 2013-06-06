@@ -49,7 +49,7 @@
                                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                 <li>@Html.ActionLink("New Dispatch", "Index", "Dispatch")</li>                                
                                 <li>@Html.ActionLink("Active Dispatches", "Enquiry", "Dispatch")</li>
-                                <li>@Html.ActionLink("Mock Tracking", "Index", "MobileTracking")</li>
+                                <li>@Html.ActionLink("Mock Tracking", "Index", "MobileTracking", null,  new { target = "_blank" })</li>
                                 @*<li>@Html.ActionLink("Pascal Pyramid", "Index", "Pascal")</li>*@
                             </ul>
                         </nav>
@@ -70,7 +70,7 @@
                     <p>&copy; @DateTime.Now.Year - LiteDispatch</p>
                 </div>
                 <div class="float-right">
-                    <p>Version 20-May-2013 - @Html.ActionLink("Enhancements and Changes", "Index", "ReleaseNotes")</p>
+                    <p>Version 06-Jun-2013 - @Html.ActionLink("Enhancements and Changes", "Index", "ReleaseNotes")</p>
                 </div>
             </div>
         </footer>
