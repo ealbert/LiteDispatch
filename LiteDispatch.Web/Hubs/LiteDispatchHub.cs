@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace LiteDispatch.Web.Hubs
+﻿namespace LiteDispatch.Web.Hubs
 {
-  using Domain.Models;
   using Microsoft.AspNet.SignalR;
 
   public class LiteDispatchHub : Hub
