@@ -13,6 +13,14 @@
             .ForMember(d => d.DurationMetric, m => m.MapFrom(o => o.DurationMetric))
             .ForMember(d => d.DispatchNote, m => m.Ignore())
             .ForMember(d => d.Id, m => m .Ignore());
+
+      Mapper.CreateMap<DispatchNote, DispatchNoteDto>()
+            .ForMember(d => d.LastTrackingNotification, m => m.MapFrom(o => o.LastTrackingNotificationDescription()))
+            .ForMember(d => d.Haulier, m => m.MapFrom(o => o.Haulier.Name))
+            .ForMember(d => d.DispatchStatus, m => m.MapFrom(o => o.DispatchNoteStatus))
+            .ForMember(d => d.DispatchLineSet, m => m.MapFrom(o => o.DispatchLines()));
+
+      Mapper.CreateMap<DispatchLine, DispatchLineDto>();
     }
   }
 }

@@ -9,6 +9,7 @@ namespace LiteDispatch.Web.Controllers
 {
   using BusinessAdapters;
   using Core.DTOs;
+  using Domain.Entities;
   using Hubs;
   using Microsoft.AspNet.SignalR;
 
@@ -31,6 +32,12 @@ namespace LiteDispatch.Web.Controllers
         hubContext.Clients.All.updateDispatch(response.DispatchNoteId);
       }
       return response;
+    }
+
+    [HttpGet]
+    public List<DispatchNoteDto> ActiveDispatchNotes()
+    {
+      return TrackingAdapter.GetActiveDispatchNotes();
     }
   }
 }

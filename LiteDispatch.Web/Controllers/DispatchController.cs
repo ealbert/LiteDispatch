@@ -88,6 +88,7 @@ namespace LiteDispatch.Web.Controllers
     public ActionResult Enquiry()
     {
       var model = DispatchAdapter.GetAllDispatches();
+      model = model.OrderByDescending(d => d.LastUpdate);
       return View(model);
     }
 

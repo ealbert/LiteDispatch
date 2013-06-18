@@ -99,5 +99,28 @@
       response.Accepted = true;
       return response;
     }    
+
+    public string LastTrackingNotificationDescription()
+    {
+      var distance = LastTrackingNotification == null
+                       ? "N/A"
+                       : string.Format("{0} {1}", LastTrackingNotification.Distance.ToString("N0"),
+                                       LastTrackingNotification.DistanceMetric);
+
+      var duration = LastTrackingNotification == null
+                       ? "N/A"
+                       : GetDurationFromSeconds(LastTrackingNotification.Duration);
+
+      return string.Format("{0} - ETA in: {1}", distance, duration);
+    }
+
+    private static string GetDurationFromSeconds(double duration)
+    {
+      var span = new TimeSpan(0, 0, (int)duration);
+
+      var minutes = span.ToString("mm");
+      var hrs = span.ToString("hh");
+      return string.Format("{0} hrs {1} mins", hrs, minutes);
+    }
   }
 }

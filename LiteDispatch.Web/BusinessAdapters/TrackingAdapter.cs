@@ -1,7 +1,9 @@
 ﻿namespace LiteDispatch.Web.BusinessAdapters
 {
   using System;
+  using System.Collections.Generic;
   using System.Linq;
+  using AutoMapper;
   using Core.DTOs;
   using Domain.Entities;
   using Domain.Repository;
@@ -41,6 +43,22 @@
 
       // dispatch found and it is valid
       return dispatchNote.CreateTrackingNotification(locator, dto, response);
+    }
+
+    public List<DispatchNoteDto> GetActiveDispatchNotes()
+    {
+      return ExecuteCommand(GetActiveDispatchNotesImpl);
+    }
+
+    private List<DispatchNoteDto> GetActiveDispatchNotesImpl(IRepositoryLocator locator)
+    {
+      var results = locator.FindAll<DispatchNote>()
+                    .Where(
+                      d =>
+                      d.DispatchNoteStatus.Equals(DispatchNote.New) ||
+                      d.DispatchNoteStatus.Equals(DispatchNote.InTransit)).ToList();
+
+      return Mapper.Map<List<DispatchNoteDto>>(results);
     }
   }
 }

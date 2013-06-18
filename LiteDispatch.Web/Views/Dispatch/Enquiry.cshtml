@@ -33,7 +33,7 @@
 
 @if (Model.Any())
 {
-    <table id="listados">
+    <table id="dispatches">
         <thead>
             <th>Haulier</th>
             <th>Date</th>
@@ -62,12 +62,12 @@ else
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            setListadoStyle();
+            setDispatchesStyle();
         });
-        var setListadoStyle = function() {
-            $("#listados > tbody tr:odd").css("background-color", "#F7F7F7");
-            $("#listados > tbody tr:even").css("background-color", "#EFEEEF");
-            $("#listados > thead th").css("padding-right", "20px"); // ToDo: Use CSS to do this
+        var setDispatchesStyle = function() {
+            $("#dispatches > tbody tr:odd").css("background-color", "#F7F7F7");
+            $("#dispatches > tbody tr:even").css("background-color", "#EFEEEF");
+            $("#dispatches > thead th").css("padding-right", "20px"); // ToDo: Use CSS to do this
         };
         
     </script>
@@ -83,25 +83,24 @@ else
         chat.client.newDispatch = function (dispatchId) {
             alert("A new DispatchNote was created by other user with Id: " + dispatchId);
             $.get('@Url.Action("GetDispatchNoteDetails", "Dispatch")' + '?dispatchId=' + dispatchId, function (html) {
-                $('#listados').prepend(html);
-                $('#listado_' + dispatchId).hide();
-                setListadoStyle();
-                linksToButtons();
-                $('#listado_' + dispatchId).show(2000);
+                renderDispatch(dispatchId, html);
             });
         };
-
+       
         chat.client.updateDispatch = function (dispatchId) {
             alert("An existing DispatchNote was updated by other user with Id: " + dispatchId);
             $.get('@Url.Action("GetDispatchNoteDetails","Dispatch")' + '?dispatchId=' + dispatchId, function (html) {
-                
-                $('#listado_' + dispatchId).hide("slow").remove();
-                $('#listados').prepend(html);
-                $('#listado_' + dispatchId).hide();
-                setListadoStyle();
-                linksToButtons();
-                $('#listado_' + dispatchId).show(2000);
+                $('#dispatch_' + dispatchId).hide("slow").remove();
+                renderDispatch(dispatchId, html);
             });
+        };
+
+        var renderDispatch = function (dispatchId, html) {
+            $('#dispatches').prepend(html);
+            $('#dispatch_' + dispatchId).hide();
+            setDispatchesStyle();
+            linksToButtons();
+            $('#dispatch_' + dispatchId).show(2000);
         };
 
         $.connection.hub.start().done(function () {

@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\DispatchLineDto.cs" />
+    <Compile Include="DTOs\DispatchNoteDto.cs" />
     <Compile Include="DTOs\TrackingNotificationDto.cs" />
     <Compile Include="DTOs\TrackingResponseDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
