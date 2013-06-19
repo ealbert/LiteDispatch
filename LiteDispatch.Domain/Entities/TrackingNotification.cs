@@ -31,6 +31,10 @@ namespace LiteDispatch.Domain.Entities
     public double Latitude { get; private set; }
     public double Longitude { get; private set; }
 
+    public string DistanceDescription()
+    {
+        return DistanceMetric.Equals("Kilometer") ? "Kms" : DistanceMetric;
+    }
   }
 
 

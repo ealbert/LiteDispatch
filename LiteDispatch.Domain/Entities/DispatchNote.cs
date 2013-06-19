@@ -105,7 +105,7 @@
       var distance = LastTrackingNotification == null
                        ? "N/A"
                        : string.Format("{0} {1}", LastTrackingNotification.Distance.ToString("N0"),
-                                       LastTrackingNotification.DistanceMetric);
+                                       LastTrackingNotification.DistanceDescription());
 
       var duration = LastTrackingNotification == null
                        ? "N/A"
