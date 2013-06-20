@@ -67,7 +67,8 @@
             ItemsSource="{Binding Source={StaticResource SummariesViewSource}}"
             IsSwipeEnabled="False"           
             SelectionChanged="ItemListView_SelectionChanged"
-            ItemTemplate="{StaticResource DispatchSummaryTemplate}"/>
+            ItemTemplate="{StaticResource DispatchSummaryTemplate}"
+            SelectedItem="{Binding SelectedDispatch}"/>
 
         <!-- Details for selected item -->
         <ScrollViewer

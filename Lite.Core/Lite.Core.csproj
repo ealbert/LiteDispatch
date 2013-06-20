@@ -108,6 +108,7 @@
     <Compile Include="..\LiteDispatch.Core\DTOs\DispatchNoteDto.cs">
       <Link>DTOs\DispatchNoteDto.cs</Link>
     </Compile>
+    <Compile Include="DTOs\BingMapsRESTModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

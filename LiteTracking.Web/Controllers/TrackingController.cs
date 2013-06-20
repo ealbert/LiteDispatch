@@ -31,7 +31,7 @@ namespace LiteTracking.Web.Controllers
     private void ProcessRequest(string truckRegistration, double latitude, double longitude, TrackingResponse response)
     {
       const string query =
-        @"http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0={0},{1}&wp.1={2},{3}&optmz=distance&rpo=Points&key={4}";
+        @"http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0={0},{1}&wp.1={2},{3}&rpo=Points&key={4}";
       var origin = new[] {52.516071, 13.37698};
       var uri = new Uri(string.Format(query, latitude, longitude, origin[0], origin[1], GetKey()));
 
