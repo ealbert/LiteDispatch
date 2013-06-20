@@ -17,7 +17,7 @@
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -112,6 +112,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\Channel.cs" />
     <Compile Include="DataModel\DispatchLineSummaries.cs" />
     <Compile Include="DataModel\DispatchLineSummary.cs" />
     <Compile Include="DataModel\DispatchNoteSummaries.cs" />
@@ -143,16 +144,20 @@
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\Logo_150.png" />
-    <Content Include="Assets\SmallLogo.png" />
+    <Content Include="Assets\Logo_30.png" />
+    <Content Include="Assets\Logo_30.scale-100.png" />
+    <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
+    <None Include="Package.StoreAssociation.xml" />
     <Page Include="DispatchNotesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Content Include="Assets\WideLogo.scale-80.png" />
     <Content Include="docs\References.html" />
     <Content Include="images\Apps-Calendar-Metro-icon.png" />
     <Content Include="images\Apps-clock-icon.png" />
@@ -163,9 +168,11 @@
     <Content Include="images\circle_metro_3_24.png" />
     <Content Include="images\contacts_good_metro_24.png" />
     <Content Include="images\contacts_metro_24.png" />
+    <Content Include="images\crab_128.png" />
     <Content Include="images\devil_96.png" />
     <Content Include="images\do_metro_24.png" />
     <Content Include="images\email_metro_24.png" />
+    <Content Include="images\fish_128.png" />
     <Content Include="images\fox-icon.png" />
     <Content Include="images\fox-icon_96.png" />
     <Content Include="images\fox_24.png">
@@ -173,7 +180,9 @@
     </Content>
     <Content Include="images\girl_96.png" />
     <Content Include="images\hammer-icon.png" />
+    <Content Include="images\intransit_128.png" />
     <Content Include="images\Letter-S-black-icon.png" />
+    <Content Include="images\lobster_128_cartoon.png" />
     <Content Include="images\male_96.png" />
     <Content Include="images\metro_calendar.png" />
     <Content Include="images\metro_fox.png" />
@@ -198,10 +207,12 @@
     <Content Include="images\received_128.png" />
     <Content Include="images\shark-icon.png" />
     <Content Include="images\shark-icon_96.png" />
+    <Content Include="images\snow_flake_128.png" />
     <Content Include="images\tiger-icon.png" />
     <Content Include="images\todo-icon.png" />
     <Content Include="images\todo_metro_24.png" />
     <Content Include="images\todo_task_128.png" />
+    <Content Include="images\truck_128.png" />
     <Content Include="images\truck_ex_128.png" />
     <Content Include="images\warning.png" />
     <Page Include="MainGroups.xaml">
@@ -220,15 +231,43 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.2\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.16\lib\win8\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.16\lib\win8\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Mobile">
+      <HintPath>..\packages\WindowsAzure.MobileServices.1.0.0\lib\netcore45\Microsoft.WindowsAzure.Mobile.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.Ext">
+      <HintPath>..\packages\WindowsAzure.MobileServices.1.0.0\lib\netcore45\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.1.10\lib\win8\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.1.10\lib\win8\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Bing.Maps.Xaml, Version=1.0">
+      <Name>Bing Maps for C#, C++, or Visual Basic</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=11.0">
+      <Name>Microsoft Visual C++ Runtime Package</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.7\tools\Microsoft.Bcl.Build.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -16,12 +16,11 @@ namespace LiteTracker.UI.Services
     class TrackingServices
     {
 
-        public async Task<List<DispatchNoteDto>> GetDispatchNotes(ObservableCollection<DispatchNoteSummary> dispatchNoteSummaries, ObservableCollection<DispatchLineSummary> dispatchLineSummaries)
+        public async Task GetDispatchNotes(ObservableCollection<DispatchNoteSummary> dispatchNoteSummaries)
         {
             const string uriString = @"http://litedispatch.azurewebsites.net/api/tracking/ActiveDispatchNotes";
             using (var client = new HttpClient())
             {
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));    
                 using (var response = await client.GetAsync(uriString))
                 {
                     if (response.IsSuccessStatusCode)
@@ -34,15 +33,9 @@ namespace LiteTracker.UI.Services
                         {
                             dispatchNoteSummaries.Add(DispatchNoteSummary.Create(dispatchNoteDto));
                         }
-                        dispatchLineSummaries.Clear();
-                        foreach (var line in dispatchNoteSummaries.SelectMany(d => d.DispatchLineSummaries))
-                        {
-                            dispatchLineSummaries.Add(line);
-                        }
                     }
                 }
-            }
-            return null;                        
+            }                        
         }
     }
 }

@@ -29,11 +29,11 @@ namespace LiteTracker.UI.DataModel
             switch (ProductType)
             {
                 case "Frozen":
-                    return "/images/pin_big.png";
+                    return "/images/snow_flake_128.png";
                 case "Fresh":
-                    return "/images/shark-icon.png";
+                    return "/images/fish_128.png";
                 default:
-                    return "/images/pending_big.png";
+                    return "/images/lobster_128_cartoon.png";
             }
         }
     }

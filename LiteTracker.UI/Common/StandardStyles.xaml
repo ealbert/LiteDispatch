@@ -1773,12 +1773,16 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="75" Height="75">
                 <Image Source="{Binding ProductTypeImage}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Product}"/>
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
-                <TextBlock Text="{Binding Product}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" FontSize="22" FontWeight="Bold"/>
-                <TextBlock MinHeight="22" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" FontSize="22" FontWeight="Bold"/>
+                <TextBlock Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" FontSize="18" FontWeight="Bold">                
+                    <Run Text="Product: " ></Run>
+                    <Run Text="{Binding Product}" ></Run>
+                    <Run Text=" Type: " ></Run>
+                    <Run Text="{Binding ProductType}" ></Run>
+                </TextBlock>
                 <TextBlock Text="{Binding QuantityDescription}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" FontSize="16"/>
                 <TextBlock Text="{Binding ClientDescription}" Style="{StaticResource BodyTextStyle}" TextWrapping="NoWrap" FontSize="16"/>
             </StackPanel>

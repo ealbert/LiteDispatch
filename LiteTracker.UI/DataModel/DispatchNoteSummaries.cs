@@ -15,7 +15,7 @@ namespace LiteTracker.UI.DataModel
             get { return _allSummaries; }
         }
 
-        public static IEnumerable<DispatchNoteSummary> GetSummaries()
+        public static ObservableCollection<DispatchNoteSummary> GetSummaries()
         {                   
             return Summaries.AllSummaries;
         }

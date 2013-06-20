@@ -28,6 +28,12 @@ namespace LiteDispatch.Domain.Mappings
           ;
 
       Mapper.CreateMap<Haulier, HaulierModel>();
+
+      Mapper.CreateMap<DispatchNote, DispatchEventBase>()
+        .ForMember(d => d.DispatchNoteId, m => m.MapFrom(o => o.Id))
+        .ForMember(d => d.EventType, m => m.MapFrom(o => o.DispatchNoteStatus.Equals(DispatchNote.InTransit) ? "Tracking event" : "Dispatch was created"))
+        .ForMember(d => d.TrackingInfo, m => m.MapFrom(o => o.DispatchNoteStatus.Equals(DispatchNote.InTransit) ? o.LastTrackingNotificationDescription() : string.Empty))
+        .ForMember(d => d.Truck, m => m.MapFrom(o => o.TruckReg));
     }
 
     private static string GetDurationFromSeconds(double duration)

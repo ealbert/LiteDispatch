@@ -15,7 +15,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Application-specific resources -->
-
+            <x:String x:Key="BingCredentials">AmRo7sXXgrUA5CDNyYvWlOdfuddUG8YIqdlUK418lY0ucQz8hZ5qVwGgYXCc9vqe</x:String>
             <x:String x:Key="AppName">LiteTracker</x:String>
         </ResourceDictionary>
     </Application.Resources>

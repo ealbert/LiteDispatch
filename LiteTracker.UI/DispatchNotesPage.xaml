@@ -7,7 +7,8 @@
     xmlns:data="using:LiteTracker.UI.DataModel"
     xmlns:common="using:LiteTracker.UI.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
+    xmlns:maps="using:Bing.Maps"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -37,6 +38,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="primaryColumn" Width="610"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
         <!-- Back button and page title -->
@@ -73,12 +75,12 @@
             AutomationProperties.AutomationId="ItemDetailScrollViewer"
             Grid.Column="1"
             Grid.RowSpan="2"
-            Padding="70,0,120,0"
+            Padding="0,0,0,0"
             DataContext="{Binding SelectedItem, ElementName=ItemListView}"
             d:DataContext="{Binding AllSummaries[0], Source={d:DesignInstance Type=data:DispatchNoteSummaries, IsDesignTimeCreatable=True}}"
             Style="{StaticResource VerticalScrollViewerStyle}">
 
-            <Grid x:Name="itemDetailGrid" Margin="0,60,0,50">
+            <Grid x:Name="itemDetailGrid" Margin="0,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -106,16 +108,40 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
+                <maps:Map x:Name="mapTrucks" Grid.Row="2" Grid.ColumnSpan="2" Credentials="{StaticResource BingCredentials}" Margin="10,10,10,100"></maps:Map>
+            </Grid>
+        </ScrollViewer>
+        <!-- Details for selected item -->
+        <ScrollViewer
+            AutomationProperties.AutomationId="ItemDetailScrollViewer"
+            Grid.Column="2"
+            Grid.RowSpan="2"
+            Padding="70,0,120,0"
+            DataContext="{Binding SelectedItem, ElementName=ItemListView}"
+            d:DataContext="{Binding AllSummaries[0], Source={d:DesignInstance Type=data:DispatchNoteSummaries, IsDesignTimeCreatable=True}}"
+            Style="{StaticResource VerticalScrollViewerStyle}">
+
+            <Grid Margin="0,60,0,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Dispatch Note Lines:" FontSize="18" FontWeight="Bold"  Grid.ColumnSpan="2"></TextBlock>
                 <ListView
-                    x:Name="taskListView"
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Grid.ColumnSpan="2"
-                    Margin="25,20,0,0"
-                    MaxWidth="800"
+                    Margin="0,0,0,0"
+                    MaxWidth="450"
                     ItemsSource="{Binding Source={StaticResource LinesViewSource}}"
                     IsSwipeEnabled="False"                    
                     ItemTemplate="{StaticResource DispatchLineSummaryTemplate}" HorizontalAlignment="Left"/>
-                <!--<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Margin="0,20,0,0" Text="{Binding Content}" Style="{StaticResource BodyTextStyle}"/>-->
+                
             </Grid>
         </ScrollViewer>
 

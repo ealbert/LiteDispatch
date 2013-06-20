@@ -18,6 +18,8 @@ namespace LiteTracker.UI.DataModel
         public StatusEnum Status { get; set; }
         public ImageSource StatusImage { get; set; }
         public ObservableCollection<DispatchLineSummary> DispatchLineSummaries { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         public void SetImage(string imagePath, ImageEnum imageEnum)
         {
@@ -68,6 +70,8 @@ namespace LiteTracker.UI.DataModel
             instance.Truck = dto.TruckReg;
             instance.Status = dto.DispatchStatus.Equals("New") ? StatusEnum.New : StatusEnum.InTransit;
             instance.LastActivity = dto.LastUpdate.ToString("dd-MMM-yyyy @ hh:mm");
+            instance.Latitude = dto.Latitude;
+            instance.Longitude = dto.Longitude;
             if (instance.Status == StatusEnum.InTransit)
             {
                 instance.LastActivity += " - Tracking Event";

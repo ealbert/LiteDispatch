@@ -1,4 +1,7 @@
-﻿namespace LiteDispatch.Web.BusinessAdapters
+﻿using System.Net;
+using Newtonsoft.Json;
+
+namespace LiteDispatch.Web.BusinessAdapters
 {
   using System;
   using System.Collections.Generic;
@@ -30,9 +33,6 @@
         locator.FindAll<DispatchNote>()
                .FirstOrDefault(d => d.TruckReg.Equals(dto.TruckRegistration, StringComparison.InvariantCultureIgnoreCase));
 
-      var allDispatches = locator.FindAll<DispatchNote>().ToList();
-      var xx = allDispatches;
-
       if (dispatchNote == null)
       {
         response.Error = "DispatchNote was not found with Truck Registration: " + dto.TruckRegistration;
@@ -42,7 +42,13 @@
       response.DispatchNoteId = dispatchNote.Id;      
 
       // dispatch found and it is valid
-      return dispatchNote.CreateTrackingNotification(locator, dto, response);
+      response = dispatchNote.CreateTrackingNotification(locator, dto, response);
+      if (response.Accepted)
+      {
+        var dispatchEvent = Mapper.Map<DispatchEventBase>(dispatchNote);
+        CreateDispatchEvent(dispatchEvent);
+      }
+      return response;
     }
 
     public List<DispatchNoteDto> GetActiveDispatchNotes()
@@ -60,5 +66,25 @@
 
       return Mapper.Map<List<DispatchNoteDto>>(results);
     }
+
+    private void CreateDispatchEvent(DispatchEventBase dispatchEvent)
+    {
+      using (var client = new WebClient())
+      {
+        client.Headers[HttpRequestHeader.ContentType] = "application/json";
+        client.Headers.Add("X-ZUMO-APPLICATION", "xJJfEdiYjrioWvkvaQoUgRtlTUpyBp52");
+        client.BaseAddress = @"https://litetracker.azure-mobile.net/";
+
+        var json = JsonConvert.SerializeObject(dispatchEvent);
+        var result = client.UploadString(GetDispatchEventUri(), "POST", json);
+        var dto = JsonConvert.DeserializeObject<DispatchEvent>(result);
+      }
+    }
+
+    private string GetDispatchEventUri()
+    {
+      return "tables/DispatchEvent";
+    }
+
   }
 }

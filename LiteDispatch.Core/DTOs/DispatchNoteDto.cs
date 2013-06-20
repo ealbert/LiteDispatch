@@ -13,5 +13,7 @@
     public DateTime LastUpdate { get; set; }
     public string LastTrackingNotification { get; set; }
     public ICollection<DispatchLineDto> DispatchLineSet { get; set; }
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
   }
 }
