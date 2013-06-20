@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using LiteTracker.UI.DataModel;
 using LiteTracker.UI.Services;
+using Windows.Foundation;
 using Windows.Networking.PushNotifications;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Split Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234234
 
@@ -149,10 +151,22 @@ namespace LiteTracker.UI
         if (selectedItem == null) return;
         this.DefaultViewModel["Lines"] = selectedItem.DispatchLineSummaries;
         var pushpin = new Pushpin { Text = selectedItem.Truck};
-        mapTrucks.Children.Add(pushpin);
+        //mapTrucks.Children.Clear();
+        //mapTrucks.Children.Add(pushpin);
         var location = new Location(selectedItem.Latitude, selectedItem.Longitude);
-        MapLayer.SetPosition(pushpin, location);
-        pushpin.Tapped += (s, ev) => mapTrucks.SetView(location, 15);
+        //MapLayer.SetPosition(pushpin, location);
+          if(location.Latitude == 0 && location.Longitude == 0 ) return;
+          //mapTrucks.SetView(location)};
+          //mapTrucks.SetZoomLevel(7);
+        //mapTrucks.Center = location;
+        //pushpin.Tapped += (s, ev) => mapTrucks.SetView(location, 7);
+          Image image = new Image();
+          image.Source = new BitmapImage(new Uri(BaseUri, "/images/truck_map.png"));
+          image.Width = 40;
+          image.Height = 40;
+          MapLayer.SetPosition(image, location);          
+          mapTrucks.Children.Add(image);
+          mapTrucks.SetView(location);
 
       }
     }

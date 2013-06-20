@@ -108,7 +108,11 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <maps:Map x:Name="mapTrucks" Grid.Row="2" Grid.ColumnSpan="2" Credentials="{StaticResource BingCredentials}" Margin="10,10,10,100"></maps:Map>
+                <maps:Map x:Name="mapTrucks" Grid.Row="2" Grid.ColumnSpan="2" Credentials="{StaticResource BingCredentials}" Margin="10,10,10,100">
+                    <maps:Map.Center>
+                    <maps:Location Latitude="46.227480" Longitude="-122.192955" />
+                    </maps:Map.Center>
+                </maps:Map>
             </Grid>
         </ScrollViewer>
         <!-- Details for selected item -->

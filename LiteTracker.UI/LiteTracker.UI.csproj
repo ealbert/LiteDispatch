@@ -214,6 +214,7 @@
     <Content Include="images\todo_task_128.png" />
     <Content Include="images\truck_128.png" />
     <Content Include="images\truck_ex_128.png" />
+    <Content Include="images\truck_map.png" />
     <Content Include="images\warning.png" />
     <Page Include="MainGroups.xaml">
       <Generator>MSBuild:Compile</Generator>
