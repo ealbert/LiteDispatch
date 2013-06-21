@@ -13,29 +13,31 @@ using Newtonsoft.Json;
 
 namespace LiteTracker.UI.Services
 {
-    class TrackingServices
-    {
+  internal class TrackingServices
+  {
 
-        public async Task GetDispatchNotes(ObservableCollection<DispatchNoteSummary> dispatchNoteSummaries)
+    public async Task<IEnumerable<DispatchNoteSummary>> GetDispatchNotes()
+    {
+      const string uriString = @"http://litedispatch.azurewebsites.net/api/tracking/ActiveDispatchNotes";
+      var dispatchNoteSummaries = new List<DispatchNoteSummary>();
+      using (var client = new HttpClient())
+      {
+        using (var response = await client.GetAsync(uriString))
         {
-            const string uriString = @"http://litedispatch.azurewebsites.net/api/tracking/ActiveDispatchNotes";
-            using (var client = new HttpClient())
+          if (response.IsSuccessStatusCode)
+          {
+            var result = await response.Content.ReadAsStringAsync();
+            var dispatches = JsonConvert.DeserializeObject<List<DispatchNoteDto>>(result);
+            dispatches = dispatches.OrderByDescending(d => d.LastUpdate).ToList();
+
+            foreach (var dispatchNoteDto in dispatches)
             {
-                using (var response = await client.GetAsync(uriString))
-                {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var result = await response.Content.ReadAsStringAsync();
-                        var dispatches = JsonConvert.DeserializeObject<List<DispatchNoteDto>>(result);
-                        dispatches = dispatches.OrderByDescending(d => d.LastUpdate).ToList();
-                        dispatchNoteSummaries.Clear();
-                        foreach (var dispatchNoteDto in dispatches)
-                        {
-                            dispatchNoteSummaries.Add(DispatchNoteSummary.Create(dispatchNoteDto));
-                        }
-                    }
-                }
-            }                        
+              dispatchNoteSummaries.Add(DispatchNoteSummary.Create(dispatchNoteDto));
+            }
+          }
         }
+      }
+      return dispatchNoteSummaries;
     }
+  }
 }

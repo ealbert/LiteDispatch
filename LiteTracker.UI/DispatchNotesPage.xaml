@@ -8,7 +8,7 @@
     xmlns:common="using:LiteTracker.UI.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
-    xmlns:maps="using:Bing.Maps"
+    xmlns:maps="using:Bing.Maps" xmlns:designMocks="using:LiteTracker.UI.DesignMocks"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -17,11 +17,11 @@
         <CollectionViewSource
             x:Name="SummariesViewSource"
             Source="{Binding Summaries}"
-            d:Source="{Binding AllSummaries, Source={d:DesignInstance Type=data:DispatchNoteSummaries, IsDesignTimeCreatable=True}}"/>
+            d:Source="{Binding AllSummaries, Source={d:DesignInstance Type=designMocks:DispatchNoteSummaries, IsDesignTimeCreatable=True}}"/>
         <CollectionViewSource
             x:Name="LinesViewSource"
             Source="{Binding Lines}"
-            d:Source="{Binding AllSummaries, Source={d:DesignInstance Type=data:DispatchLineSummaries, IsDesignTimeCreatable=True}}"/>
+            d:Source="{Binding AllSummaries, Source={d:DesignInstance Type=designMocks:DispatchLineSummaries, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
 
     <!--
@@ -78,7 +78,7 @@
             Grid.RowSpan="2"
             Padding="0,0,0,0"
             DataContext="{Binding SelectedItem, ElementName=ItemListView}"
-            d:DataContext="{Binding AllSummaries[0], Source={d:DesignInstance Type=data:DispatchNoteSummaries, IsDesignTimeCreatable=True}}"
+            d:DataContext="{Binding AllSummaries[0], Source={d:DesignInstance Type=designMocks:DispatchNoteSummaries, IsDesignTimeCreatable=True}}"
             Style="{StaticResource VerticalScrollViewerStyle}">
 
             <Grid x:Name="itemDetailGrid" Margin="0,0,0,0">
@@ -123,7 +123,7 @@
             Grid.RowSpan="2"
             Padding="70,0,120,0"
             DataContext="{Binding SelectedItem, ElementName=ItemListView}"
-            d:DataContext="{Binding AllSummaries[0], Source={d:DesignInstance Type=data:DispatchNoteSummaries, IsDesignTimeCreatable=True}}"
+            d:DataContext="{Binding AllSummaries[0], Source={d:DesignInstance Type=designMocks:DispatchNoteSummaries, IsDesignTimeCreatable=True}}"
             Style="{StaticResource VerticalScrollViewerStyle}">
 
             <Grid Margin="0,60,0,50">

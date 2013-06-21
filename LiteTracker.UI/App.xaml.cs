@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Threading.Tasks;
 using LiteTracker.UI.Common;
-using LiteTracker.UI.DataModel;
-using Microsoft.WindowsAzure.MobileServices;
+using LiteTracker.UI.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Networking.PushNotifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 
 namespace LiteTracker.UI
 {
   /// <summary>
   /// Provides application-specific behavior to supplement the default Application class.
   /// </summary>
-  sealed partial class App : Application
+  sealed partial class App
   {
     /// <summary>
     /// Initializes the singleton Application object.  This is the first line of authored code
@@ -24,21 +19,15 @@ namespace LiteTracker.UI
     /// </summary>
     public App()
     {
-      this.InitializeComponent();
-      this.Suspending += OnSuspending;
-      AcquirePushChannel().Wait();
+      InitializeComponent();
+      Suspending += OnSuspending;
+      
+      MobileServices = new MobileServices();
+      RepositoryServices = new RepositoryServices();
     }
 
-
-
-    // This MobileServiceClient has been configured to communicate with your Mobile Service's url
-    // and application key. You're all set to start working with your Mobile Service!
-    public static MobileServiceClient MobileService = new MobileServiceClient(
-      "https://litetracker.azure-mobile.net/",
-      "xJJfEdiYjrioWvkvaQoUgRtlTUpyBp52"
-      );
-
-    public static PushNotificationChannel CurrentChannel { get; private set; }
+    internal static MobileServices MobileServices { get; private set; }
+    internal static RepositoryServices RepositoryServices { get; private set; }
 
     /// <summary>
     /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -103,14 +92,6 @@ namespace LiteTracker.UI
       var deferral = e.SuspendingOperation.GetDeferral();
       await SuspensionManager.SaveAsync();
       deferral.Complete();
-    }
-
-    private async Task AcquirePushChannel()
-    {
-      CurrentChannel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
-      var channelTable = App.MobileService.GetTable<Channel>();
-      var channel = new Channel { Uri = CurrentChannel.Uri };
-      await channelTable.InsertAsync(channel);
     }
   }
 }

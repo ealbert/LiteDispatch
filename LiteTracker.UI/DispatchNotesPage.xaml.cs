@@ -1,25 +1,15 @@
-﻿using System.Runtime.Serialization.Json;
-using System.Threading.Tasks;
-using Bing.Maps;
+﻿using System.Collections.ObjectModel;
 using LiteTracker.UI.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using LiteTracker.UI.DataModel;
 using LiteTracker.UI.Services;
-using LiteTracking.Web.Models.BingMaps;
-using Windows.Foundation;
 using Windows.Networking.PushNotifications;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Location = Bing.Maps.Location;
-
-// The Split Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234234
 
 namespace LiteTracker.UI
 {
@@ -27,35 +17,21 @@ namespace LiteTracker.UI
   /// A page that displays a group title, a list of items within the group, and details for the
   /// currently selected item.
   /// </summary>
-  public sealed partial class DispatchNotesPage : LayoutAwarePage
+  public sealed partial class DispatchNotesPage
   {
-    private MapShapeLayer routeLayer;
-      
     public DispatchNotesPage()
     {
-      this.InitializeComponent();
-      App.CurrentChannel.PushNotificationReceived += CurrentChannel_PushNotificationReceived;
-      routeLayer = new MapShapeLayer();
-      mapTrucks.ShapeLayers.Add(routeLayer);
+      InitializeComponent();
+      _mapServices = new MapServices(mapTrucks, BaseUri);
+      App.MobileServices.CurrentChannel.PushNotificationReceived += CurrentChannel_PushNotificationReceived;
     }
 
-
-    private async Task<Response> GetResponse(Uri uri)
-    {
-      var client = new System.Net.Http.HttpClient();
-      var response = await client.GetAsync(uri);
-
-      using (var stream = await response.Content.ReadAsStreamAsync())
-      {
-        var ser = new DataContractJsonSerializer(typeof(Response));
-        return ser.ReadObject(stream) as Response;
-      }
-    }
+    private readonly MapServices _mapServices;
 
     private async void CurrentChannel_PushNotificationReceived(PushNotificationChannel sender,
-                                                         PushNotificationReceivedEventArgs args)
+                                                               PushNotificationReceivedEventArgs args)
     {
-      await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,  RefreshDispatchNoteSummaries);      
+      await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, RefreshDispatchNoteSummaries);
     }
 
     #region Page state management
@@ -71,8 +47,6 @@ namespace LiteTracker.UI
     /// session.  This will be null the first time a page is visited.</param>
     protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
     {
-      
-      //DefaultViewModel["Summaries"] = DispatchNoteSummaries.GetSummaries();
       RefreshDispatchNoteSummaries();
 
       if (pageState == null)
@@ -93,7 +67,7 @@ namespace LiteTracker.UI
         // Restore the previously saved state associated with this page
         if (pageState.ContainsKey("SelectedItem") && this.SummariesViewSource.View != null)
         {
-          var selectedItem = DispatchNoteSummaries.GetItem((int) pageState["SelectedItem"]);
+          var selectedItem = App.RepositoryServices.GetItem((int) pageState["SelectedItem"]);
           if (selectedItem == null) return;
           this.DefaultViewModel["Lines"] = selectedItem.DispatchLineSummaries;
           this.SummariesViewSource.View.MoveCurrentTo(selectedItem);
@@ -103,10 +77,8 @@ namespace LiteTracker.UI
 
     public async void RefreshDispatchNoteSummaries()
     {
-      var service = new TrackingServices();
-      DefaultViewModel["Summaries"] = null;
-      await service.GetDispatchNotes(DispatchNoteSummaries.GetSummaries());
-      DefaultViewModel["Summaries"] = DispatchNoteSummaries.GetSummaries();    
+      var dispatchNoteSummaries = await App.RepositoryServices.RefreshDispatchNoteSummaries();
+      DefaultViewModel["Summaries"] = new ObservableCollection<DispatchNoteSummary>(dispatchNoteSummaries);
     }
 
     /// <summary>
@@ -174,106 +146,8 @@ namespace LiteTracker.UI
         if (e.AddedItems.Count == 0) return;
         var selectedItem = this.ItemListView.SelectedItem as DispatchNoteSummary;
         if (selectedItem == null) return;
-        DefaultViewModel["Lines"] = selectedItem.DispatchLineSummaries;                      
-        RefreshMap(selectedItem);
-      }
-    }
-
-    private void RefreshMap(DispatchNoteSummary selectedItem)
-    {
-      var location = new Location(selectedItem.Latitude, selectedItem.Longitude);
-      if (location.Latitude == 0 && location.Longitude == 0) return;
-
-      SetRoute(location, new Location(52.516071, 13.37698));
-      var image = new Image
-        {
-          Source = new BitmapImage(new Uri(BaseUri, "/images/truck_map.png")),
-          Width = 40,
-          Height = 40
-        };
-
-      MapLayer.SetPosition(image, location);
-      mapTrucks.SetView(location);
-      mapTrucks.Children.Add(image);
-    }
-
-    private void ClearMap()
-    {
-      mapTrucks.Children.Clear();
-      routeLayer.Shapes.Clear();
-    }
-
-    private async void SetRoute(Location startLocation, Location endLocation)
-    {
-      ClearMap();
-      //Create the Request URL for the routing service
-      const string request =
-        @"http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0={0},{1}&wp.1={2},{3}&rpo=Points&key={4}";
-
-      var routeRequest = new Uri(string.Format(request, startLocation.Latitude, startLocation.Longitude, endLocation.Latitude, endLocation.Longitude, mapTrucks.Credentials));
-
-      //Make a request and get the response
-      var r = await GetResponse(routeRequest);
-
-      if (r != null &&
-          r.ResourceSets != null &&
-          r.ResourceSets.Length > 0 &&
-          r.ResourceSets[0].Resources != null &&
-          r.ResourceSets[0].Resources.Length > 0)
-      {
-        var route = r.ResourceSets[0].Resources[0] as Route;
-        if (route == null) return;
-
-        //Get the route line data
-        var routePath = route.RoutePath.Line.Coordinates;
-        var locations = new LocationCollection();
-
-        foreach (var t in routePath)
-        {
-          if (t.Length >= 2)
-          {
-            locations.Add(new Location(t[0], t[1]));
-          }
-        }
-
-        //Create a MapPolyline of the route and add it to the map
-        var routeLine = new MapPolyline()
-          {
-            Color = Colors.Blue,
-            Locations = locations,
-            Width = 5
-          };
-
-        routeLayer.Shapes.Add(routeLine);
-
-        //Add start and end pushpins
-        var start = new Pushpin()
-          {
-            Text = "S",
-            Background = new SolidColorBrush(Colors.Green)
-          };
-
-        mapTrucks.Children.Add(start);
-        MapLayer.SetPosition(start,
-                             new Location(route.RouteLegs[0].ActualStart.Coordinates[0],
-                                                    route.RouteLegs[0].ActualStart.Coordinates[1]));
-
-        var end = new Pushpin()
-          {
-            Text = "E",
-            Background = new SolidColorBrush(Colors.Red)
-          };
-
-        mapTrucks.Children.Add(end);
-        MapLayer.SetPosition(end,
-                             new Location(route.RouteLegs[0].ActualEnd.Coordinates[0],
-                                                    route.RouteLegs[0].ActualEnd.Coordinates[1]));
-
-        //Set the map view for the locations
-        var locationRect = new LocationRect(locations);
-        locationRect.Width += 0.5;
-        locationRect.Height += 0.5;
-        mapTrucks.SetView(locationRect);
+        DefaultViewModel["Lines"] = selectedItem.DispatchLineSummaries;
+        _mapServices.RefreshMap(selectedItem);
       }
     }
 
@@ -282,7 +156,7 @@ namespace LiteTracker.UI
     /// </summary>
     /// <param name="sender">The back button instance.</param>
     /// <param name="e">Event data that describes how the back button was clicked.</param>
-    protected override void GoBack (object sender, RoutedEventArgs e)
+    protected override void GoBack(object sender, RoutedEventArgs e)
     {
       if (this.UsingLogicalPageNavigation() && ItemListView.SelectedItem != null)
       {
@@ -301,41 +175,38 @@ namespace LiteTracker.UI
     }
 
     /// <summary>
-      /// Invoked to determine the name of the visual state that corresponds to an application
-      /// view state.
-      /// </summary>
-      /// <param name="viewState">The view state for which the question is being posed.</param>
-      /// <returns>The name of the desired visual state.  This is the same as the name of the
-      /// view state except when there is a selected item in portrait and snapped views where
-      /// this additional logical page is represented by adding a suffix of _Detail.</returns>
-    protected override
-      string DetermineVisualState 
-      (ApplicationViewState
-      viewState)
+    /// Invoked to determine the name of the visual state that corresponds to an application
+    /// view state.
+    /// </summary>
+    /// <param name="viewState">The view state for which the question is being posed.</param>
+    /// <returns>The name of the desired visual state.  This is the same as the name of the
+    /// view state except when there is a selected item in portrait and snapped views where
+    /// this additional logical page is represented by adding a suffix of _Detail.</returns>
+    protected override string DetermineVisualState(ApplicationViewState viewState)
+    {
+      // Update the back button's enabled state when the view state changes
+      var logicalPageBack = this.UsingLogicalPageNavigation(viewState) && this.ItemListView.SelectedItem != null;
+      var physicalPageBack = this.Frame != null && this.Frame.CanGoBack;
+      this.DefaultViewModel["CanGoBack"] = logicalPageBack || physicalPageBack;
+
+      // Determine visual states for landscape layouts based not on the view state, but
+      // on the width of the window.  This page has one layout that is appropriate for
+      // 1366 virtual pixels or wider, and another for narrower displays or when a snapped
+      // application reduces the horizontal space available to less than 1366.
+      if (viewState == ApplicationViewState.Filled ||
+          viewState == ApplicationViewState.FullScreenLandscape)
       {
-        // Update the back button's enabled state when the view state changes
-        var logicalPageBack = this.UsingLogicalPageNavigation(viewState) && this.ItemListView.SelectedItem != null;
-        var physicalPageBack = this.Frame != null && this.Frame.CanGoBack;
-        this.DefaultViewModel["CanGoBack"] = logicalPageBack || physicalPageBack;
-
-        // Determine visual states for landscape layouts based not on the view state, but
-        // on the width of the window.  This page has one layout that is appropriate for
-        // 1366 virtual pixels or wider, and another for narrower displays or when a snapped
-        // application reduces the horizontal space available to less than 1366.
-        if (viewState == ApplicationViewState.Filled ||
-            viewState == ApplicationViewState.FullScreenLandscape)
-        {
-          var windowWidth = Window.Current.Bounds.Width;
-          if (windowWidth >= 1366) return "FullScreenLandscapeOrWide";
-          return "FilledOrNarrow";
-        }
-
-        // When in portrait or snapped start with the default visual state name, then add a
-        // suffix when viewing details instead of the list
-        var defaultStateName = base.DetermineVisualState(viewState);
-        return logicalPageBack ? defaultStateName + "_Detail" : defaultStateName;
+        var windowWidth = Window.Current.Bounds.Width;
+        if (windowWidth >= 1366) return "FullScreenLandscapeOrWide";
+        return "FilledOrNarrow";
       }
 
-      #endregion
+      // When in portrait or snapped start with the default visual state name, then add a
+      // suffix when viewing details instead of the list
+      var defaultStateName = base.DetermineVisualState(viewState);
+      return logicalPageBack ? defaultStateName + "_Detail" : defaultStateName;
     }
+
+    #endregion
   }
+}
